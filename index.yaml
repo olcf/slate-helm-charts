@@ -9,7 +9,7 @@ entries:
           url: https://www.jenkins.io/
     apiVersion: v2
     appVersion: 2.263.3
-    created: "2021-03-04T10:47:17.648353-05:00"
+    created: "2021-03-05T10:04:23.234336-05:00"
     description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
     digest: 7a23178fada0cbdaa901b0d63118f386371ede16861aebc70692e7dda83acacd
     home: https://jenkins.io/
@@ -35,10 +35,10 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/jenkins-3.1.8.tgz
     version: 3.1.8
   minio-nfs:
-  - apiVersion: v1
-    created: "2021-03-04T10:47:17.649656-05:00"
+  - apiVersion: v2
+    created: "2021-03-05T10:04:23.23509-05:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared via NFS
-    digest: b63744461f34bc75a96f2d8fc0c947fdd39428608d234308c7533e15ca66311b
+    digest: 28bc8f526fdaca89265af839074aaa668ad9ade6e390d98ea49ef100a120f555
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
     maintainers:
     - email: platform-admins@email.ornl.gov
@@ -49,4 +49,4 @@ entries:
     urls:
     - https://olcf.github.io/slate-helm-charts/charts/minio-nfs-1.0.0.tgz
     version: 1.0.0
-generated: "2021-03-04T10:47:17.641588-05:00"
+generated: "2021-03-05T10:04:23.228062-05:00"
