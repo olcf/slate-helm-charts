@@ -1,0 +1,25 @@
+{{- if .Values.networkPolicy.enabled }}
+kind: NetworkPolicy
+apiVersion: {{ template "minio-nfs.networkPolicy.apiVersion" . }}
+metadata:
+  name: {{ template "minio-nfs.fullname" . }}
+  labels:
+    app: {{ template "minio-nfs.name" . }}
+    chart: {{ template "minio-nfs.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ template "minio-nfs.name" . }}
+      release: {{ .Release.Name }}
+  ingress:
+    - ports:
+        - port: {{ .Values.service.port }}
+      {{- if not .Values.networkPolicy.allowExternal }}
+      from:
+        - podSelector:
+            matchLabels:
+              {{ template "minio-nfs.name" . }}-client: "true"
+      {{- end }}
+{{- end }}

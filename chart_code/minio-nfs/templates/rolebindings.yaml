@@ -1,0 +1,20 @@
+{{- if and .Values.securityContext.enabled  (.Capabilities.APIVersions.Has "security.openshift.io/v1") }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ template "minio-nfs.serviceAccountName" . }}
+  labels:
+    app: {{ template "minio-nfs.name" . }}
+    chart: {{ template "minio-nfs.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  namespace: {{ .Release.Namespace | quote }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "minio-nfs.serviceAccountName" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ template "minio-nfs.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace | quote }}
+{{- end }}

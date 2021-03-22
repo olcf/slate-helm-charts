@@ -1,0 +1,123 @@
+# Slate MinIO Deployment with PVC
+#
+# Declare variables to be passed into your templates.
+#
+## Provide a name in place of minio for `app:` labels
+nameOverride: ""
+## Provide a name to substitute for the full names of resources
+fullnameOverride: ""
+
+# MinIO minio image to use
+image:
+  tag: RELEASE.2021-03-01T04-20-55Z
+
+
+## Additional labels to include with deployment
+additionalLabels: []
+## Additional annotations to include with deployment
+additionalAnnotations: []
+# Additational pod annotations
+podAnnotations: {}
+# Additional pod labels
+podLabels: {}
+
+
+## Additional arguments to pass to minio binary
+extraArgs: []
+
+
+## Set default accesskey, secretkey, Minio config file path, and volume mount path
+## AccessKey and secretKey is generated when not set
+##
+accessKey: ""
+secretKey: ""
+mountPath: "/export"
+
+## Use existing Secret that stores the following variables:
+##
+## | Chart var             | .data.<key> in Secret    |
+## |:----------------------|:-------------------------|
+## | accessKey             | accesskey                |
+## | secretKey             | secretkey                |
+existingSecret: ""
+
+## Override the root directory which the minio server should serve from.
+## If left empty, it defaults to the value of {{ .Values.mountPath }}
+## If defined, it must be a sub-directory of the path specified in {{ .Values.mountPath }}
+bucketRoot: ""
+
+## Enable persistence using Persistent Volume Claims
+persistence:
+  size: 50Gi
+  ## A manually managed Persistent Volume and Claim
+  ## If defined, PVC must be created manually before volume will be bound
+  existingClaim: ""
+  ## If subPath is set mount a sub folder of a volume instead of the root of the volume.
+  ## This is especially handy for volume plugins that don't natively support sub mounting (like glusterfs).
+  ##
+  subPath: ""
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 9000
+  externalIPs: []
+  annotations: {}
+
+route:
+  enabled: true
+  hostname: ""
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## Use minio on NAS backend
+## https://docs.minio.io/docs/minio-gateway-for-nas
+
+nasgateway:
+  # Number of parallel instances
+  replicas: 4
+  # For NAS Gateway, you may want to bind the PVC to a specific PV. To ensure that happens, PV to bind to should have
+  # a label like "pv: <value>", use value here.
+  pv: ~
+
+## Use this field to add environment variables relevant to Minio server. These fields will be passed on to Minio container(s)
+## when Chart is deployed
+environment: {}
+  ## Please refer for comprehensive list https://docs.minio.io/docs/minio-server-configuration-guide.html
+  ## MINIO_DOMAIN: "chart-example.local"
+  ## MINIO_BROWSER: "off"
+
+## Specify the service account to use for the Minio pods. If 'create' is set to 'false'
+## and 'name' is left unspecified, the account 'default' will be used.
+serviceAccount:
+  create: true
+  ## The name of the service account to use. If 'create' is 'true', a service account with that name
+  ## will be created. Otherwise, a name will be auto-generated.
+  name:
+
+networkPolicy:
+  enabled: false
+  allowExternal: true

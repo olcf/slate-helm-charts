@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "title": "Slate MinIO NFS Gateway",
+    "description": "Slate MinIO deployment using NetApp persistent storage shared via NFS",
+    "properties": {
+        "accessKey": {
+            "title": "Access Key",
+            "description": "This field is optional. User provided MinIO application access key secret. If left blank, this will be automatically generated.",
+            "type": "string"
+        },
+        "secretKey": {
+            "title": "Secret  Key",
+            "description": "This field is optional. User provided MinIO application secret key secret. If left blank, this will be automatically generated.",
+            "type": "string"
+        },
+        "persistence": {
+            "title": "Persistent Storage Options",
+            "type": "object",
+            "properties": {
+                "size": {
+                    "title": "Size",
+                    "description": "This field is required. The amount of storage allocated to the volume.",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

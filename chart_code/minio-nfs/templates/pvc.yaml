@@ -1,0 +1,23 @@
+{{- if (not .Values.persistence.existingClaim) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "minio-nfs.fullname" . }}
+  labels:
+    app: {{ template "minio-nfs.name" . }}
+    chart: {{ template "minio-nfs.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+{{- if .Values.nasgateway.pv }}
+  selector:
+    matchLabels:
+      pv: {{ .Values.nasgateway.pv | quote }}
+{{- end }}
+  accessModes:
+    - "ReadWriteMany"
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  storageClassName: netapp-nfs
+{{- end }}
