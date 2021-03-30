@@ -25,37 +25,8 @@ spec:
        name: {{.Values.mysql.spec.configMapName }}
 {{- end }}
   requireSSL: false
-  # configSecret:
-  #  name: my-custom-config
-  #podTemplate:
-  #  metadata:
-  #    annotations:
-  #      passMe: ToDatabasePod
-  #  controller:
-  #    annotations:
-  #      passMe: ToStatefulSet
-  #  spec:
-  #    serviceAccountName: my-service-account
-  #  args:
-  #    - --character-set-server=utf8mb4
-  #    env:
-  #    - name: MYSQL_DATABASE
-  #      value: myDB
-  #    resources:
-  #      requests:
-  #        memory: "64Mi"
-  #        cpu: "250m"
-  #      limits:
-  #        memory: "128Mi"
-  #        cpu: "500m"
-  #serviceTemplates:
-  #- alias: primary
-  #  metadata:
-  #    annotations:
-  #      passMe: ToService
-  #  spec:
-  #    type: NodePort
-  #    ports:
-  #    - name:  http
-  #      port:  9200
+  podTemplate:
+    spec:
+      resources:
+        {{- toYaml .Values.mysql.spec.resources | nindent 8 }}
   terminationPolicy: {{ .Values.mysql.spec.terminationPolicy | quote }}
