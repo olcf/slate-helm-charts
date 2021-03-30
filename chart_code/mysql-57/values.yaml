@@ -20,6 +20,7 @@ mysql:
       size: 1Gi
     authSecret: ""
     terminationPolicy: Delete
+    configMapName: ""
 
 
 ###serviceAccount:

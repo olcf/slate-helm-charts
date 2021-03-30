@@ -18,10 +18,12 @@ spec:
     resources:
       requests:
         storage: {{ .Values.mysql.spec.storage.size | quote }}
-  # init:
-  #  script:
-  #    configMap:
-  #      name: mg-init-script
+{{- if .Values.mysql.spec.configMapName }}
+  init:
+   script:
+     configMap:
+       name: {{.Values.mysql.spec.configMapName }}
+{{- end }}
   requireSSL: false
   # configSecret:
   #  name: my-custom-config
