@@ -18,6 +18,7 @@ mysql:
   spec:
     storage:
       size: 1Gi
+    authSecret: ""
     terminationPolicy: Delete
 
 

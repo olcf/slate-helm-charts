@@ -6,10 +6,10 @@ metadata:
     {{- include "mysql-57.labels" . | nindent 4 }}
 spec:
   version: {{ .Chart.AppVersion | quote }}
-  # topology:
-  #   mode: GroupReplication
-  # authSecret:
-  #     name: m1-auth
+{{- if .Values.mysql.spec.authSecret }}
+  authSecret:
+      name: {{ .Values.mysql.spec.authSecret }}
+{{- end }}
   storageType: "Durable"
   storage:
     storageClassName: netapp-nfs
