@@ -32,6 +32,17 @@ mysql:
     #   cpu: 100m
     #   memory: 128Mi
     resources: {}
+phpmyadmin:
+  enabled: true
+  apache2:
+    port: 8080
+  auto_login: false
+  blowfish_secret: ""
+  route:
+    enabled: true
+    hostname: ""
+  tempdir_size: 50Mi
+  user_config: '/* User phpMyAdmin config */'
 
 
 
