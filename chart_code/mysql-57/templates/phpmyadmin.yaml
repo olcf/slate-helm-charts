@@ -3,17 +3,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: phpmyadmin
+    app: {{ include "mysql-57.fullname" . }}-phpmyadmin
   name: {{ include "mysql-57.fullname" . }}-phpmyadmin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: phpmyadmin
+      app: {{ include "mysql-57.fullname" . }}-phpmyadmin
   template:
     metadata:
       labels:
-        app: phpmyadmin
+        app: {{ include "mysql-57.fullname" . }}-phpmyadmin
     spec:
       containers:
       - image: phpmyadmin/phpmyadmin
@@ -36,37 +36,39 @@ spec:
                 name: {{ include "mysql-57.fullname" . }}-auth
                 key: password
           {{ else }}
-          - name: PMA_HOST
-            value: {{ include "mysql-57.fullname" . }}
+          - name: PMA_ARBITRARY
+            value: "1"
+          #- name: PMA_HOST
+          #  value: {{ include "mysql-57.fullname" . }}
           {{ end }}
         volumeMounts:
-        - name: "phpmyadmin-apache2-config"
+        - name: "{{ include "mysql-57.fullname" . }}-phpmyadmin-apache2-config"
           mountPath: '/etc/apache2/sites-available/000-default.conf'
           subPath: '000-default.conf'
-        - name: "phpmyadmin-apache2-config"
+        - name: "{{ include "mysql-57.fullname" . }}-phpmyadmin-apache2-config"
           mountPath: '/etc/apache2/ports.conf'
           subPath: 'ports.conf'
-        - name: "phpmyadmin-blowfish"
+        - name: "{{ include "mysql-57.fullname" . }}-phpmyadmin-blowfish"
           mountPath: '/etc/phpmyadmin/config.secret.inc.php'
           subPath: 'config.secret.inc.php'
-        - name: "phpmyadmin-userconfig"
+        - name: "{{ include "mysql-57.fullname" . }}-phpmyadmin-userconfig"
           mountPath: '/etc/phpmyadmin/config.user.inc.php'
           subPath: 'config.user.inc.php'
-        - name: "tempdir"
+        - name: "{{ include "mysql-57.fullname" . }}-phpmyadmin-tempdir"
           mountPath: '/var/www/html/tmp'
       volumes:
-      - name: phpmyadmin-apache2-config
+      - name: {{ include "mysql-57.fullname" . }}-phpmyadmin-apache2-config
         configMap:
-          name: phpmyadmin-apache2-config
+          name: {{ include "mysql-57.fullname" . }}-phpmyadmin-apache2-config
           defaultMode: 0644
-      - name: phpmyadmin-blowfish
+      - name: {{ include "mysql-57.fullname" . }}-phpmyadmin-blowfish
         secret:
-          secretName: phpmyadmin-blowfish
-      - name: phpmyadmin-userconfig
+          secretName: {{ include "mysql-57.fullname" . }}-phpmyadmin-blowfish
+      - name: {{ include "mysql-57.fullname" . }}-phpmyadmin-userconfig
         configMap:
-          name: phpmyadmin-userconfig
+          name: {{ include "mysql-57.fullname" . }}-phpmyadmin-userconfig
           defaultMode: 0644
-      - name: tempdir
+      - name: {{ include "mysql-57.fullname" . }}-phpmyadmin-tempdir
         persistentVolumeClaim:
           claimName: {{ include "mysql-57.fullname" . }}-phpmyadmin-tempdir
 ---
@@ -74,7 +76,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: phpmyadmin
+    app: {{ include "mysql-57.fullname" . }}-phpmyadmin
   name: {{ include "mysql-57.fullname" . }}-phpmyadmin
 spec:
   ports:
@@ -83,13 +85,13 @@ spec:
     protocol: TCP
     targetPort: {{ .Values.phpmyadmin.apache2.port }}
   selector:
-    app: phpmyadmin
+    app: {{ include "mysql-57.fullname" . }}-phpmyadmin
   type: ClusterIP
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: phpmyadmin-apache2-config
+  name: {{ include "mysql-57.fullname" . }}-phpmyadmin-apache2-config
 data:
   000-default.conf: |
     <VirtualHost *:{{ .Values.phpmyadmin.apache2.port }}>
@@ -110,7 +112,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: phpmyadmin-blowfish
+  name: {{ include "mysql-57.fullname" . }}-phpmyadmin-blowfish
 data:
   {{ if .Values.phpmyadmin.blowfish_secret -}}
   config.secret.inc.php: {{ printf "<?php\n $cfg['blowfish_secret'] = '%s';\n ?>" .Values.phpmyadmin.blowfish_secret | b64enc }}
@@ -121,7 +123,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: phpmyadmin-userconfig
+  name: {{ include "mysql-57.fullname" . }}-phpmyadmin-userconfig
 data:
   config.user.inc.php: |
     {{ .Values.phpmyadmin.user_config }}
