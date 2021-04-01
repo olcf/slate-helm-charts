@@ -1,0 +1,1 @@
+Notes concerning the deployment of a KubeDB MySQL 5.7 Database with a phpMyAdmin frontend and automated backups.

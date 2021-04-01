@@ -6,5 +6,4 @@ type: application
 icon: https://min.io/resources/img/logo/MINIO_wordmark.png
 maintainers:
   - name: Platforms Group
-    email: platform-admins@email.ornl.gov
     url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
