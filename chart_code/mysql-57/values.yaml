@@ -36,7 +36,7 @@ phpmyadmin:
   enabled: true
   apache2:
     port: 8080
-  auto_login: false
+  auto_login: true
   blowfish_secret: ""
   route:
     enabled: true

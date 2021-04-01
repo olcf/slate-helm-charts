@@ -143,6 +143,8 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: {{ include "mysql-57.fullname" . }}-phpmyadmin
+  annotations:
+    ccs.ornl.gov/requireAuth: "true"
 spec:
 {{- if .Values.phpmyadmin.route.hostname }}
   host: {{ .Values.phpmyadmin.route.hostname }}
