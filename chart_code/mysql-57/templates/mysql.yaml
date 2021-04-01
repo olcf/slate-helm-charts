@@ -30,3 +30,16 @@ spec:
       resources:
         {{- toYaml .Values.mysql.spec.resources | nindent 8 }}
   terminationPolicy: {{ .Values.mysql.spec.terminationPolicy | quote }}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-{{ include "mysql-57.fullname" . }}-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ include "mysql-57.fullname" . }}
+  ingress:
+    - {}
+  policyTypes:
+  - Ingress
