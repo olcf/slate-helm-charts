@@ -1,14 +1,23 @@
 # Default values for mysql-57.
 
+## Used in place of the chart name. This setting is not recommended to be used.
 nameOverride: ""
+## Provides a name to substitute for the full names of resources
 fullnameOverride: ""
 
+## Settings presented to create KubeDB MySQL deployment
 mysql:
   spec:
     storage:
       size: 1Gi
+    ## Set to an already existing username and password combination to use for the root account.
+    ##  If not speified, a new secret will be automatically generated.
     authSecret: ""
+    ## Termination policy to use when the resources are deleted. Default is set to delete. See the
+    ##  KubeDB documentaiton for other options.
     terminationPolicy: Delete
+    ## Set to a name of an already existing configMap object that contains a mysql script to run
+    ##    that initilizes the newly created database.
     configMapName: ""
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
@@ -21,20 +30,36 @@ mysql:
     #   cpu: 100m
     #   memory: 128Mi
     resources: {}
+## Settings used to drive the configuration of phpMyAdmin
 phpmyadmin:
+  ## Whether or not to enable the phpMyAdmin deployment
   enabled: true
+  ## WHat port should apache be listening for connections for phpMyAdmin.
   apache2:
     port: 8080
+  ## Whether or not to configure phpMyAdmin for automatic login as the MySQL root user
   auto_login: true
+  ##  What string should be used for the phpMyAdmin blowfish secret. If not provided, it
+  ##    will be automatically be generated.
   blowfish_secret: ""
   route:
+    ## Whether or not to enable a route to the phpMyAdmin service.
     enabled: true
+    ## Hostname to use for the route. If not provided, it will be automatically generated.
     hostname: ""
+  ## Size for the phpMyAdmin tempdir
   tempdir_size: 50Mi
+  ## String that provides any special configuration settings for phpMyAdmin.
   user_config: '/* User phpMyAdmin config */'
+## Settings used to configure the automatic stash backups.
 stash:
+  ## Whether or not to enable automatic backups
   enabled: true
+  ## Specifies the restic password to use for encrypting the backup. If not provided, it will
+  ##  be automatically set.
   restic_password: ""
+  ## Retention policy to use for the backups. The values below specifiy a backup taken daily at 5:11 AM
+  ##  every day of the week, with a retention of the last 7 backups made.
   retention_policy:
     name: "keep-last-7"
     keep: 7
