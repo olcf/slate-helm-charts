@@ -1,0 +1,73 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "title": "MySQL 5.7 Database",
+    "description": "MySQL 5.7 deployment with automatic backups and fronted by phpMyAdmin",
+    "properties": {
+        "mysql": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "type": "object",
+                    "properties": {
+                        "storage": {
+                            "type": "object",
+                            "properties": {
+                                "size": {
+                                    "title": "MySQL Size",
+                                    "description": "This is a required field. The amount of storage to allocate for the MySQL Database",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "phpmyadmin": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable phpMyAdmin",
+                    "description": "Whether or not to enable the phpMyAdmin deployment. Defaults to true",
+                    "type": "boolean"
+                }
+            }
+        },
+        "stash": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Backups",
+                    "description": "Whether or not to enable automatic backups. Defaults to true",
+                    "type": "boolean"
+                },
+                "retention_policy": {
+                    "type": "object",
+                    "properties": {
+                        "keep": {
+                            "title": "Number to Keep",
+                            "description": "Number of backups to keep. Defaults to the last five.",
+                            "type": "integer"
+                        },
+                        "name": {
+                            "title": "name",
+                            "description": "Name of regimen. Defaults to keep-last-5 with the default number of backups to keep is 5",
+                            "type": "string"
+                        }
+                    }
+                },
+                "schedule": {
+                    "title": "Backup Schedule",
+                    "description": "cron schedule for when to run backups. Defaults to 5:11 am daily",
+                    "type": "string"
+                },
+                "storage_size": {
+                    "title": "Backup Storage Size",
+                    "description": "Storage size to use for retained backups. Defaults to 1Gi",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
