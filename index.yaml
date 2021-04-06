@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   minio-nfs:
   - apiVersion: v2
-    created: "2021-04-06T09:41:47.056312-04:00"
+    created: "2021-04-06T14:35:04.916657-04:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared via NFS
     digest: 28bc8f526fdaca89265af839074aaa668ad9ade6e390d98ea49ef100a120f555
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
@@ -18,9 +18,9 @@ entries:
   mysql-57:
   - apiVersion: v2
     appVersion: 5.7.33
-    created: "2021-04-06T09:41:47.058502-04:00"
+    created: "2021-04-06T14:35:04.917246-04:00"
     description: MySQL server version 5.7.XX with NetApp persistent storage
-    digest: 62af8985907142c16b1d5c0a295ed1f35e24b5df91e84b823088efc69d3014fb
+    digest: 17b4e1852a1930051eaf5e3bb5f8334467ceb9c7eea6ff4d49c94300624dea81
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
     maintainers:
     - name: Platforms Group
@@ -28,20 +28,6 @@ entries:
     name: mysql-57
     type: application
     urls:
-    - https://olcf.github.io/slate-helm-charts/charts/mysql-57-0.2.0.tgz
-    version: 0.2.0
-  - apiVersion: v2
-    appVersion: 5.7.33
-    created: "2021-04-06T09:41:47.057918-04:00"
-    description: MySQL server version 5.7.XX with NetApp persistent storage
-    digest: 96c5ef06ccdcf2df047060dd3ce8124a3e28bc89874de9a87f4014d58216223c
-    icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
-    maintainers:
-    - name: Platforms Group
-      url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
-    name: mysql-57
-    type: application
-    urls:
-    - https://olcf.github.io/slate-helm-charts/charts/mysql-57-0.1.0.tgz
-    version: 0.1.0
-generated: "2021-04-06T09:41:47.053923-04:00"
+    - https://olcf.github.io/slate-helm-charts/charts/mysql-57-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-04-06T14:35:04.914511-04:00"
