@@ -1,6 +1,6 @@
 apiVersion: v2
 name: mysql-57
-version: 0.1.0
+version: 0.2.0
 description: MySQL server version 5.7.XX with NetApp persistent storage
 type: application
 icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
