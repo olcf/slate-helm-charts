@@ -4,7 +4,7 @@ kind: Secret
 metadata:
   name: {{ include "mysql-57.fullname" . }}-stash-secret
 data:
-  RESTIC_PASSWORD: {{ if .Values.stash.restic_password }}{{ .Values.stash.restic_password | toString | b64enc | quote }}{{ else }}{{ randAlphaNum 20 | b64enc | quote }}{{ end }}
+  RESTIC_PASSWORD: {{ template "restic.password"  .  }}
 type: Opaque
 ---
 apiVersion: v1

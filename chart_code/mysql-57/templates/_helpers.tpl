@@ -36,3 +36,16 @@ Selector labels
 {{- define "mysql-57.selectorLabels" -}}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Restic Backup Password
+*/}}
+{{- define "restic.password" -}}
+{{- $mysecret := printf "%s-stash-secret" (include "mysql-57.fullname" .) }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace $mysecret) }}
+{{- if $secret -}}
+{{-  index $secret.data "RESTIC_PASSWORD" -}}
+{{- else -}}
+{{ if .Values.stash.restic_password }}{{ .Values.stash.restic_password | toString | b64enc | quote }}{{ else }}{{ randAlphaNum 20 | b64enc | quote }}{{ end }}
+{{- end -}}
+{{- end -}}
