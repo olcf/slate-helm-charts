@@ -1,0 +1,10 @@
+apiVersion: v2
+name: mongo-40
+description: MongoDB server version 4.0.XX with NetApp persistent storage
+type: application
+version: 0.1.0
+appVersion: "4.0.5-v3"
+icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
