@@ -9,6 +9,7 @@
             "properties": {
                 "spec": {
                     "type": "object",
+                    "properties": {
                         "storage": {
                             "type": "object",
                             "properties": {
