@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   minio-nfs:
   - apiVersion: v2
-    created: "2021-04-30T09:07:08.945122-04:00"
+    created: "2021-04-30T09:33:25.21295-04:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared via NFS
     digest: 28bc8f526fdaca89265af839074aaa668ad9ade6e390d98ea49ef100a120f555
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
@@ -18,7 +18,7 @@ entries:
   mongo-40:
   - apiVersion: v2
     appVersion: 4.0.5-v3
-    created: "2021-04-30T09:07:08.94556-04:00"
+    created: "2021-04-30T09:33:25.213369-04:00"
     description: MongoDB server version 4.0.XX with NetApp persistent storage
     digest: aa07643d12d859f0989eb4f99d8bf7b5299f9391d4e2739f4d5390ee423a5d84
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -30,10 +30,25 @@ entries:
     urls:
     - https://olcf.github.io/slate-helm-charts/charts/mongo-40-1.0.0.tgz
     version: 1.0.0
+  mongo-42:
+  - apiVersion: v2
+    appVersion: 4.2.3
+    created: "2021-04-30T09:33:25.213818-04:00"
+    description: MongoDB server version 4.2.XX with NetApp persistent storage
+    digest: 6135d485667214a6544ec97d42a22b2758d76f61f6e4b3cea713e923b3461011
+    icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
+    maintainers:
+    - name: Platforms Group
+      url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
+    name: mongo-42
+    type: application
+    urls:
+    - https://olcf.github.io/slate-helm-charts/charts/mongo-42-1.0.0.tgz
+    version: 1.0.0
   mysql-57:
   - apiVersion: v2
     appVersion: 5.7.33-v1
-    created: "2021-04-30T09:07:08.948453-04:00"
+    created: "2021-04-30T09:33:25.214863-04:00"
     description: MySQL server version 5.7.XX with NetApp persistent storage
     digest: a936363807c5ee8ead54a2d43bd22d7e8116298834bce2bdae34663fb900eae9
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -47,7 +62,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 5.7.33
-    created: "2021-04-30T09:07:08.946797-04:00"
+    created: "2021-04-30T09:33:25.214348-04:00"
     description: MySQL server version 5.7.XX with NetApp persistent storage
     digest: 17b4e1852a1930051eaf5e3bb5f8334467ceb9c7eea6ff4d49c94300624dea81
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -59,4 +74,4 @@ entries:
     urls:
     - https://olcf.github.io/slate-helm-charts/charts/mysql-57-1.0.0.tgz
     version: 1.0.0
-generated: "2021-04-30T09:07:08.943043-04:00"
+generated: "2021-04-30T09:33:25.212137-04:00"
