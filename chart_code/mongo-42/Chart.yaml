@@ -1,0 +1,10 @@
+apiVersion: v2
+name: mongo-42
+description: MongoDB server version 4.2.XX with NetApp persistent storage
+type: application
+version: 1.0.0
+appVersion: "4.2.3"
+icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
