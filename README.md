@@ -7,7 +7,7 @@ This repository holds the helm charts that appear in Slate's service catalog for
 Helm provides a command to create a directory structure for a new chart:
 
 ```bash
-chart_code $ helm create minio-nfs
+stable $ helm create minio-nfs
 Creating minio-nfs
 ```
 
@@ -33,16 +33,16 @@ minio-nfs $ helm lint
 
 minio-nfs $ cd ../
 
-chart_code $ helm package ./minio-nfs
-Successfully packaged chart and saved it to: ~/slate-helm-charts/chart_code/minio-nfs-1.0.0.tgz
+~ $ helm package ./minio-nfs -d charts
+Successfully packaged chart and saved it to: ~/charts/minio-nfs-1.0.0.tgz
 ```
 
 Move the chart archive to the `charts` directory of this repository, and then regenerate the `index.yaml` file:
 
 ```bash
-chart_code $ mv minio-nfs-1.0.0.tgz ../charts/
-chart_code $ cd ../../
-~ $ helm repo index slate-helm-charts/ --url https://olcf.github.io/slate-helm-charts/
+stable $ mv minio-nfs-1.0.0.tgz ../charts/
+stable $ cd ../../
+~ $ helm repo index . --url https://olcf.github.io/slate-helm-charts/
 ```
 
 Once the changes are committed to master and pushed to GitHub, they will be available for use.

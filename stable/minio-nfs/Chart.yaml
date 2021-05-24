@@ -1,9 +1,9 @@
 apiVersion: v2
 name: minio-nfs
-version: 1.0.0
+version: 1.0.1
 description: MinIO Object Storage Server with NetApp persistent storage shared via NFS
 type: application
-icon: https://min.io/resources/img/logo/MINIO_wordmark.png
+icon: https://min.io/resources/img/logo/MINIO_Bird.png
 maintainers:
   - name: Platforms Group
     url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/

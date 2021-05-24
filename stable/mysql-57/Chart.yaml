@@ -1,9 +1,9 @@
 apiVersion: v2
 name: mysql-57
-version: 1.1.0
-description: MySQL server version 5.7.XX with NetApp persistent storage
+version: 1.1.1
+description: MySQL version 5.7 with NetApp persistent storage
 type: application
-icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
+icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
 appVersion: "5.7.33-v1"
 maintainers:
   - name: Platforms Group
