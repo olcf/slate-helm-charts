@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "desktop-vnc.fullname" . }}
+  labels:
+    {{- include "desktop-vnc.labels" . | nindent 4 }}
+  annotations:
+    ccs.ornl.gov/batchScheduler: "true"
+    ccs.ornl.gov/fs: olcf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "desktop-vnc.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "desktop-vnc.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "desktop-vnc.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "quay.io/kincl/docker-novnc:latest"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          env:
+            - name: DISPLAY_WIDTH
+              value: "1280"
+            - name: DISPLAY_HEIGHT
+              value: "800"
+            - name: HOME
+              value: "/ccs/home/{{ (split "-" .Release.Namespace)._0 }}_auser"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

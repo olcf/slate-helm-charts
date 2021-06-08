@@ -1,0 +1,9 @@
+apiVersion: v2
+name: desktop-vnc
+description: A desktop served over HTTPS with noVNC
+type: application
+version: 0.1.0
+icon: https://raw.githubusercontent.com/novnc/noVNC/master/app/images/icons/novnc-48x48.png
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/

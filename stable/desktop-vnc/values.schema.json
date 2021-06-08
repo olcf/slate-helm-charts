@@ -1,0 +1,5 @@
+{
+  "title": "Desktop over VNC",
+  "description": "A simple desktop served over HTTPS VNC.",
+  "type": "object"
+}
