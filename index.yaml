@@ -2,7 +2,20 @@ apiVersion: v1
 entries:
   deploy-image:
   - apiVersion: v2
-    created: "2021-06-14T17:16:20.883398-04:00"
+    created: "2021-06-14T17:19:15.460945-04:00"
+    description: Deploy a container image
+    digest: 9b71695737b65ea4f63dba8241b41227f38f6b763ccee5f5308ad7cd3a8e1c42
+    icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
+    maintainers:
+    - name: Platforms Group
+      url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
+    name: deploy-image
+    type: application
+    urls:
+    - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    created: "2021-06-14T17:19:15.46057-04:00"
     description: Deploy a container image
     digest: ef90bc4d6bb6fc793101b949e6ef2584a822344604b92d53106a9f92aaf817f3
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -16,7 +29,7 @@ entries:
     version: 0.1.0
   desktop-vnc:
   - apiVersion: v2
-    created: "2021-06-14T17:16:20.884317-04:00"
+    created: "2021-06-14T17:19:15.461272-04:00"
     description: A desktop served over HTTPS with noVNC
     digest: ba5edd345d7e7eb0879297d88f3463191380ecedb704e4843a87313d5d8707bf
     icon: https://raw.githubusercontent.com/novnc/noVNC/master/app/images/icons/novnc-48x48.png
@@ -30,7 +43,7 @@ entries:
     version: 0.1.0
   minio-nfs:
   - apiVersion: v2
-    created: "2021-06-14T17:16:20.886693-04:00"
+    created: "2021-06-14T17:19:15.462553-04:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared via NFS
     digest: e520741cc01145a66cc6dd2fb8ac6b4179cb1a9eaa30dc4e00354b3e1c2f00ea
     icon: https://min.io/resources/img/logo/MINIO_Bird.png
@@ -43,7 +56,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/minio-nfs-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v2
-    created: "2021-06-14T17:16:20.885477-04:00"
+    created: "2021-06-14T17:19:15.461895-04:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared via NFS
     digest: 28bc8f526fdaca89265af839074aaa668ad9ade6e390d98ea49ef100a120f555
     icon: https://min.io/resources/img/logo/MINIO_wordmark.png
@@ -59,7 +72,7 @@ entries:
   mongo-40:
   - apiVersion: v2
     appVersion: 4.0.5-v3
-    created: "2021-06-14T17:16:20.888341-04:00"
+    created: "2021-06-14T17:19:15.463428-04:00"
     description: MongoDB version 4.0 with NetApp persistent storage
     digest: 7bfb044b3f707b03de5fe62f5b0e46d599dd7146413e972f54fe29435729de38
     icon: https://media.mongodb.org/ico/icon-leaf.png
@@ -73,7 +86,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 4.0.5-v3
-    created: "2021-06-14T17:16:20.887381-04:00"
+    created: "2021-06-14T17:19:15.462969-04:00"
     description: MongoDB server version 4.0.XX with NetApp persistent storage
     digest: aa07643d12d859f0989eb4f99d8bf7b5299f9391d4e2739f4d5390ee423a5d84
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -88,7 +101,7 @@ entries:
   mongo-42:
   - apiVersion: v2
     appVersion: 4.2.3
-    created: "2021-06-14T17:16:20.889663-04:00"
+    created: "2021-06-14T17:19:15.46436-04:00"
     description: MongoDB version 4.2 with NetApp persistent storage
     digest: 34bb6b39213a070aa32af0905edbab308317384974312a89c30447b74b1c02e4
     icon: https://media.mongodb.org/ico/icon-leaf.png
@@ -102,7 +115,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 4.2.3
-    created: "2021-06-14T17:16:20.889022-04:00"
+    created: "2021-06-14T17:19:15.463869-04:00"
     description: MongoDB server version 4.2.XX with NetApp persistent storage
     digest: 6135d485667214a6544ec97d42a22b2758d76f61f6e4b3cea713e923b3461011
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -117,7 +130,7 @@ entries:
   mysql-57:
   - apiVersion: v2
     appVersion: 5.7.33-v1
-    created: "2021-06-14T17:16:20.892675-04:00"
+    created: "2021-06-14T17:19:15.466636-04:00"
     description: MySQL version 5.7 with NetApp persistent storage
     digest: eb67387c371894e6d30f993056ca271f829dc4de14a0d49a9d7cb47853f72478
     icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
@@ -131,7 +144,7 @@ entries:
     version: 1.1.1
   - apiVersion: v2
     appVersion: 5.7.33-v1
-    created: "2021-06-14T17:16:20.891632-04:00"
+    created: "2021-06-14T17:19:15.465466-04:00"
     description: MySQL server version 5.7.XX with NetApp persistent storage
     digest: a936363807c5ee8ead54a2d43bd22d7e8116298834bce2bdae34663fb900eae9
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -145,7 +158,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: 5.7.33
-    created: "2021-06-14T17:16:20.890703-04:00"
+    created: "2021-06-14T17:19:15.464948-04:00"
     description: MySQL server version 5.7.XX with NetApp persistent storage
     digest: 17b4e1852a1930051eaf5e3bb5f8334467ceb9c7eea6ff4d49c94300624dea81
     icon: https://www.ornl.gov/themes/custom/ornl/logo.svg
@@ -157,4 +170,4 @@ entries:
     urls:
     - https://olcf.github.io/slate-helm-charts/charts/mysql-57-1.0.0.tgz
     version: 1.0.0
-generated: "2021-06-14T17:16:20.882848-04:00"
+generated: "2021-06-14T17:19:15.460026-04:00"
