@@ -1,6 +1,6 @@
 replicaCount: 1
 
-image: nginx
+image: openshift/hello-openshift:latest
 imagePullPolicy: IfNotPresent
 # imagePullSecrets: []
 
