@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "required": [
+    "image"
+  ],
+  "properties": {
+    "replicaCount": {
+      "type": "integer",
+      "default": 1,
+      "title": "Replicas",
+      "description": "Number of copies of the application to run simultaneously"
+    },
+    "image": {
+      "title": "Image",
+      "description": "Deployment image",
+      "type": "string"
+    },
+    "service": {
+      "title": "Service",
+      "description": "Config for exposing application as an in-cluster network service",
+      "properties": {
+        "port": {
+          "type": "integer",
+          "title": "Port",
+          "description": "Port that the application is listening on for incoming connections",
+          "default": 8080
+        }
+      },
+      "type": "object"
+    },
+    "ingress": {
+      "title": "Ingress",
+      "description": "Manage external out-of-cluster access to service",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enabled",
+          "description": "Check if you want to enable ingress",
+          "default": false
+        },
+        "external": {
+          "type": "boolean",
+          "title": "External Route",
+          "description": "Check if you want to enable routing traffic from Internet (requires project-specific settings enabled by OLCF)",
+          "default": false
+        },
+        "host": {
+          "title": "Host",
+          "description": "Hostname of ingress (unless using a custom domain, must be of the form <name>.apps.<cluster>.ccs.ornl.gov in order to route traffic over SSL)",
+          "type": ["string", "null"]
+        }
+      },
+      "type": "object"
+    },
+    "resources": {
+      "type": "object",
+      "title": "Resources",
+      "description": "Define cpu and memory resources",
+      "properties": {
+        "requests": {
+          "properties": {
+            "cpu": {
+              "type": "string",
+              "title": "CPU",
+              "default": "500m"
+            },
+            "memory": {
+              "type": "string",
+              "title": "Memory",
+              "default": "512Mi"
+            }
+          }
+        },
+        "limits": {
+          "properties": {
+            "cpu": {
+              "type": "string",
+              "title": "CPU",
+              "default": "1"
+            },
+            "memory": {
+              "type": "string",
+              "title": "Memory",
+              "default": "1Gi"
+            }
+          }
+        }
+      }
+    },
+    "env": {
+      "type": "array",
+      "title": "Environment Variables",
+      "items": {
+        "type": "string",
+        "default": "key=val"
+      }
+    },
+    "volumes": {
+      "type": "array",
+      "title": "Writable Image Volumes",
+      "description": "List of directories that will be writable in the image at runtime",
+      "items": {
+        "type": "string",
+        "default": "/mnt/volume"
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "deploy-image.fullname" . }}
+  labels:
+    {{- include "deploy-image.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "deploy-image.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "deploy-image.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "deploy-image.fullname" . }}
+      {{- if .Values.volumes }}
+      initContainers:
+        - name: make-writable-area
+          image: "{{ .Values.image }}"
+          command: 
+            - sh
+            - -c
+            {{- $l := last .Values.volumes }}
+            - {{ range .Values.volumes }}if [ -d {{.}} ]; then echo Copying {{.}} && cp -aT {{ . }} /tmp{{ . }} || /bin/true ; fi {{ if not (eq $l .) }} ; {{ end }}{{ end }}
+          volumeMounts:
+          {{- range $index, $element := .Values.volumes }}
+            - name: emptydir-vol-{{ $index }}
+              mountPath: /tmp{{ $element }}
+          {{- end }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+          {{- range .Values.env }}
+            - name: {{ (split "=" .)._0 | quote }}
+              value: {{ (split "=" .)._1 | quote }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          volumeMounts:
+          {{- range $index, $element := .Values.volumes }}
+            - name: emptydir-vol-{{ $index }}
+              mountPath: {{ $element }}
+          {{- end }}
+      volumes:
+      {{- range $index, $element := .Values.volumes }}
+        - name: emptydir-vol-{{ $index }}
+          emptyDir: {}
+      {{- end }}
