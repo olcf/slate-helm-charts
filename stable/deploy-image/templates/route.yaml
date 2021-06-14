@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "deploy-image.fullname" . }}
+  labels:
+    {{- include "deploy-image.labels" . | nindent 4 }}
+    {{- if .Values.ingress.external }}
+    ccs.ornl.gov/externalRoute: "true"
+    {{- end }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.host }}
+  host: {{ .Values.ingress.host }}
+  {{- end }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ include "deploy-image.fullname" . }}
+    weight: 100
+  port:
+    targetPort: {{ .Values.service.port }}
+{{- end }}
