@@ -11,29 +11,32 @@ spec:
       {{- include "deploy-image.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.images.localLookup }}
+        alpha.image.policy.openshift.io/resolve-names: '*'
       {{- end }}
       labels:
         {{- include "deploy-image.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.images.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "deploy-image.fullname" . }}
-      {{- if .Values.volumes }}
+      {{- if .Values.writableVolumes }}
       initContainers:
         - name: make-writable-area
           image: "{{ .Values.image }}"
           command: 
             - sh
             - -c
-            {{- $l := last .Values.volumes }}
-            - {{ range .Values.volumes }}if [ -d {{.}} ]; then echo Copying {{.}} && cp -aT {{ . }} /tmp{{ . }} || /bin/true ; fi {{ if not (eq $l .) }} ; {{ end }}{{ end }}
+            {{- $l := last .Values.writableVolumes }}
+            - {{ range .Values.writableVolumes }}if [ -d {{.}} ]; then echo Copying {{.}} && cp -aT {{ . }} /tmp{{ . }} || /bin/true ; fi {{ if not (eq $l .) }} ; {{ end }}{{ end }}
           volumeMounts:
-          {{- range $index, $element := .Values.volumes }}
+          {{- range $index, $element := .Values.writableVolumes }}
             - name: emptydir-vol-{{ $index }}
               mountPath: /tmp{{ $element }}
           {{- end }}
@@ -41,7 +44,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image }}"
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -54,12 +57,12 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           volumeMounts:
-          {{- range $index, $element := .Values.volumes }}
+          {{- range $index, $element := .Values.writableVolumes }}
             - name: emptydir-vol-{{ $index }}
               mountPath: {{ $element }}
           {{- end }}
       volumes:
-      {{- range $index, $element := .Values.volumes }}
+      {{- range $index, $element := .Values.writableVolumes }}
         - name: emptydir-vol-{{ $index }}
           emptyDir: {}
       {{- end }}

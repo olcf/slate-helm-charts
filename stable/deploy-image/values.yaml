@@ -1,8 +1,11 @@
 replicaCount: 1
 
 image: openshift/hello-openshift:latest
-imagePullPolicy: IfNotPresent
-# imagePullSecrets: []
+
+images:
+  pullPolicy: IfNotPresent
+  localLookup: true
+  # pullSecret: ""
 
 podAnnotations: {}
 
@@ -26,4 +29,6 @@ resources:
     cpu: 500m
     memory: 512Mi
 
-volumes: []
+env: []
+
+writableVolumes: []

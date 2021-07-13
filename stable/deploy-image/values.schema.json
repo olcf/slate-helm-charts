@@ -15,6 +15,19 @@
       "description": "Deployment image",
       "type": "string"
     },
+    "images": {
+      "title": "Images",
+      "description": "Configuration for container image",
+      "properties": {
+        "localLookup": {
+          "type": "boolean",
+          "title": "Lookup local ImageStream images",
+          "description": "Reference a OpenShift ImageStream object by name",
+          "default": true
+        }
+      },
+      "type": "object"
+    },
     "service": {
       "title": "Service",
       "description": "Config for exposing application as an in-cluster network service",
@@ -95,10 +108,10 @@
         "default": "key=val"
       }
     },
-    "volumes": {
+    "writableVolumes": {
       "type": "array",
-      "title": "Writable Image Volumes",
-      "description": "List of directories that will be writable in the image at runtime",
+      "title": "Runtime Writable Image Locations",
+      "description": "List of directories that will be writable in the image at runtime (data will not be persisted)",
       "items": {
         "type": "string",
         "default": "/mnt/volume"
