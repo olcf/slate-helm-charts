@@ -44,6 +44,16 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image }}"
+          {{- if .Values.images.command }}
+          command: 
+            - {{ .Values.images.command | quote }}
+          {{- end }}
+          {{- if .Values.images.args }}
+          args:
+          {{- range .Values.images.args }}
+            - {{ .  | quote }}
+          {{- end }}
+          {{- end }}
           imagePullPolicy: {{ .Values.images.pullPolicy }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -61,8 +71,17 @@ spec:
             - name: emptydir-vol-{{ $index }}
               mountPath: {{ $element }}
           {{- end }}
+          {{- if .Values.persistence.enabled }}
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath | quote }}
+          {{- end }}
       volumes:
       {{- range $index, $element := .Values.writableVolumes }}
         - name: emptydir-vol-{{ $index }}
           emptyDir: {}
+      {{- end }}
+      {{- if .Values.persistence.enabled }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "deploy-image.fullname" . }}
       {{- end }}

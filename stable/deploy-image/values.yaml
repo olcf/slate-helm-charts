@@ -1,8 +1,9 @@
 replicaCount: 1
-
 image: openshift/hello-openshift:latest
 
 images:
+  command: ""
+  args: []
   pullPolicy: IfNotPresent
   localLookup: true
   # pullSecret: ""
@@ -30,5 +31,11 @@ resources:
     memory: 512Mi
 
 env: []
+
+persistence:
+  enabled: false
+  size: 1Gi
+  storageClass: "netapp-nfs"
+  mountPath: ""
 
 writableVolumes: []

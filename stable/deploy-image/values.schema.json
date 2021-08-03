@@ -16,9 +16,22 @@
       "type": "string"
     },
     "images": {
-      "title": "Images",
+      "title": "Image Configuration",
       "description": "Configuration for container image",
       "properties": {
+        "command": {
+          "title": "Container Entrypoint",
+          "description": "Command to run when container is created",
+          "type": "string"
+        },
+        "args": {
+          "title": "Container Arguments",
+          "description": "Arguments appended to container entrypoint",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "localLookup": {
           "type": "boolean",
           "title": "Lookup local ImageStream images",
@@ -115,6 +128,35 @@
       "items": {
         "type": "string",
         "default": "/mnt/volume"
+      }
+    },
+    "persistence": {
+      "type": "object",
+      "title": "Data Persistence",
+      "description": "Ensure data is stored on persistent storage",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enabled",
+          "default": false
+        },
+        "size": {
+          "type": "string",
+          "title": "Size"
+        },
+        "storageClass": {
+          "type": "string",
+          "title": "Storage Class",
+          "enum": [
+            "netapp-nfs",
+            "netapp-block"
+          ],
+          "default": "netapp-nfs"
+        },
+        "mountPath": {
+          "type": "string",
+          "title": "Mount path"
+        }
       }
     }
   }
