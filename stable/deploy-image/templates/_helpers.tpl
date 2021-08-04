@@ -46,8 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "deploy-image.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "deploy-image.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ .Release.Name }}
 {{- end }}
 
 {{- define "deploy-image.getUsername" -}}
