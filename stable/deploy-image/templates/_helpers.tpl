@@ -50,3 +50,12 @@ app.kubernetes.io/name: {{ include "deploy-image.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
+{{- define "deploy-image.getUsername" -}}
+{{- $ns := lookup "v1" "Namespace" "" .Release.Namespace }}
+{{- if $ns }}
+  {{- $username := index $ns.metadata.annotations "ccs.ornl.gov/runAsUsername" }}
+  {{- if $username }}
+    {{- printf "%s" $username }}
+  {{- end }}
+{{- end }}
+{{- end }}

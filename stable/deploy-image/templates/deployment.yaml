@@ -65,6 +65,10 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+          {{- if .Values.ccs.filesystems }}
+            - name: HOME
+              value: /ccs/home/{{ include "deploy-image.getUsername" . }}
+          {{- end }}
           {{- range .Values.env }}
             - name: {{ (split "=" .)._0 | quote }}
               value: {{ (split "=" .)._1 | quote }}
