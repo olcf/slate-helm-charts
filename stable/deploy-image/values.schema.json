@@ -15,6 +15,30 @@
       "description": "Deployment image",
       "type": "string"
     },
+    "ccs":{
+      "type": "object",
+      "title": "CCS Integrations",
+      "description": "Add workload support for center-wide resources",
+      "properties": {
+        "filesystems": {
+          "title": "Filesystems",
+          "description": "Mount center-wide home and project filesystems, use olcf-nfs for Summit/Alpine and ccsopen-nfs for Ascent/Wolf",
+          "type": "string",
+          "enum": [
+            "",
+            "olcf-nfs",
+            "ccsopen-nfs"
+          ],
+          "default": ""
+        },
+        "batch": {
+          "title": "Batch Scheduling",
+          "description": "Set up batch scheduling cross-submission capabilities in container",
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
     "images": {
       "title": "Image Configuration",
       "description": "Configuration for container image",
@@ -84,6 +108,7 @@
       "description": "Define cpu and memory resources",
       "properties": {
         "requests": {
+          "description": "The minimum amount of resources required for the workload",
           "properties": {
             "cpu": {
               "type": "string",
@@ -98,6 +123,7 @@
           }
         },
         "limits": {
+          "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
           "properties": {
             "cpu": {
               "type": "string",

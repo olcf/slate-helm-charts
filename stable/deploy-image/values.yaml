@@ -1,6 +1,10 @@
 replicaCount: 1
 image: openshift/hello-openshift:latest
 
+ccs:
+  filesystems: ""
+  batch: false
+
 images:
   command: ""
   args: []

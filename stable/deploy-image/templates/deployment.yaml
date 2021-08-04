@@ -4,6 +4,13 @@ metadata:
   name: {{ include "deploy-image.fullname" . }}
   labels:
     {{- include "deploy-image.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.ccs.filesystems }}
+    ccs.ornl.gov/fs: {{ .Values.ccs.filesystems | quote }}
+    {{- end }}
+    {{- if .Values.ccs.batch }}
+    ccs.ornl.gov/batchScheduler: "true"
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
