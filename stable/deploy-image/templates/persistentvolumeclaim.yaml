@@ -7,7 +7,12 @@ metadata:
     {{- include "deploy-image.labels" . | nindent 4 }}
 spec:
   accessModes:
+  {{- if contains "nfs" .Values.persistence.storageClass }}
     - ReadWriteMany
+  {{- end }}
+  {{- if contains "block" .Values.persistence.storageClass }}
+    - ReadWriteOnce
+  {{- end }}
   storageClassName: {{ .Values.persistence.storageClass | quote }}
   resources:
     requests:
