@@ -11,6 +11,27 @@ metadata:
     {{- if .Values.ccs.batch }}
     ccs.ornl.gov/batchScheduler: "true"
     {{- end }}
+    {{- if .Values.images.localLookup }}
+    image.openshift.io/triggers: >-
+      [
+        {
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "{{ .Values.image }}"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"main\")].image"
+        }
+        {{- if .Values.writableVolumes }}
+        ,{
+          "from": {
+            "kind": "ImageStreamTag",
+            "name": "{{ .Values.image }}"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name==\"make-writable-area\")].image"
+        }
+        {{- end }}
+      ]
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -49,7 +70,7 @@ spec:
           {{- end }}
       {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: main
           image: "{{ .Values.image }}"
           {{- if .Values.images.command }}
           command: 
