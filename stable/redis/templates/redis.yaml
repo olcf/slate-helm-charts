@@ -1,0 +1,26 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: {{ include "redis.fullname" . }}
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+spec:
+  # mode: Cluster
+  # cluster:
+  #   master: 3
+  #   replicas: 1
+  version: {{ .Values.version | quote }}
+
+  storageType: Durable
+  storage:
+    storageClassName: {{ .Values.storage.class | quote }}
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ .Values.storage.size | quote }}
+
+  podTemplate:
+    spec:
+      resources:
+        {{- toYaml .Values.resources | nindent 8 }}
