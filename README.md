@@ -23,26 +23,20 @@ Additionally, the Chart.yaml file should be modified with appropriate informatio
 
 Once a chart has been developed, it needs to be added to the repository.
 
-Helm is used to create a versioned chart archive file (.tgz) with a process similar to:
+First we will create the tgz package of the chart
 
 ```bash
-minio-nfs $ helm lint
-==> Linting .
-
-1 chart(s) linted, 0 chart(s) failed
-
-minio-nfs $ cd ../
-
-~ $ helm package ./minio-nfs -d charts
-Successfully packaged chart and saved it to: ~/charts/minio-nfs-1.0.0.tgz
+make package PKG=stable/chart
 ```
 
-Move the chart archive to the `charts` directory of this repository, and then regenerate the `index.yaml` file:
+Update repository index
 
 ```bash
-stable $ mv minio-nfs-1.0.0.tgz ../charts/
-stable $ cd ../../
-~ $ helm repo index . --url https://olcf.github.io/slate-helm-charts/
+make index
+```
+
+```bash
+git add charts index.yaml
 ```
 
 Once the changes are committed to master and pushed to GitHub, they will be available for use.
