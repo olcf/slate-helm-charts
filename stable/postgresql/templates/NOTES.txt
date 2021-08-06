@@ -1,0 +1,9 @@
+Get the database credentials:
+
+```bash
+$ oc extract secret/{{ .Release.Name }}-auth --to=-
+# password
+bar
+# username
+foo
+```
