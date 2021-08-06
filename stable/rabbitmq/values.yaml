@@ -1,0 +1,26 @@
+image: &image rabbitmq:3-management
+
+ingress: 
+  enabled: &ingress true
+
+size: &size 1Gi
+
+resources: &resources
+  limits:
+    cpu: "1"
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+deploy-image:
+  image: *image
+  service:
+    port: 15672
+  persistence:
+    enabled: true
+    size: *size
+    mountPath: /var/lib/rabbitmq
+  ingress:
+    enabled: *ingress
+  resources: *resources
