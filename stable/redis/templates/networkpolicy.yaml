@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "redis.fullname" . }}-allow-kubedb
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: kubedb-operator
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/managed-by: kubedb.com
+  policyTypes:
+  - Ingress
