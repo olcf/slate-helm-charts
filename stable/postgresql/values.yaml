@@ -1,0 +1,18 @@
+version: "13.2-debian"
+
+backup:
+  enabled: false
+
+replicaCount: 1
+
+storage:
+  size: 1Gi
+  class: netapp-block
+
+resources:
+  limits:
+    cpu: "1"
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 512Mi

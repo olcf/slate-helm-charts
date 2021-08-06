@@ -1,0 +1,13 @@
+apiVersion: v2
+name: postgresql
+description: Deploy PostgreSQL managed by KubeDB
+type: application
+icon: https://wiki.postgresql.org/images/3/30/PostgreSQL_logo.3colors.120x120.png
+version: 0.1.0
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
+dependencies:
+- name: library
+  version: 0.1.0
+  repository: https://olcf.github.io/slate-helm-charts

@@ -1,0 +1,30 @@
+{{- if .Values.backup.enabled }}
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  name: {{ include "postgresql.fullname" . }}
+spec:
+  schedule: "*/5 * * * *"
+  repository:
+    name: {{ include "postgresql.fullname" . }}
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: {{ include "postgresql.fullname" . }}
+  retentionPolicy:
+    name: keep-last-5
+    keepLast: 5
+    prune: true
+  runtimeSettings:
+    container:
+      resources:
+        requests:
+          cpu: 1
+          memory: 512Mi
+        limits:
+          cpu: 1
+          memory: 512Mi
+      securityContext:
+        runAsUser: {{ include "library.runAsUser" . }}
+{{- end }}

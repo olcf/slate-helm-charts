@@ -1,0 +1,32 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Postgres
+metadata:
+  name: {{ include "postgresql.fullname" . }}
+  labels:
+    {{- include "postgresql.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  standbyMode: Warm
+  version: {{ .Values.version | quote }}
+  storageType: Durable
+  storage:
+    storageClassName: {{ .Values.storage.class | quote }}
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ .Values.storage.size | quote }}
+  terminationPolicy: Halt
+  podTemplate:
+    spec:
+      containerSecurityContext:
+        runAsUser: {{ include "library.runAsUser" . }}
+        runAsGroup: {{ include "library.runAsGroup" . }}
+      securityContext:
+        runAsUser: {{ include "library.runAsUser" . }}
+        runAsGroup: {{ include "library.runAsGroup" . }}
+        fsGroup: {{ include "library.runAsGroup" . }}
+        supplementalGroups:
+        -  {{ include "library.runAsGroup" . }}
+      resources:
+        {{- toYaml .Values.resources | nindent 8 }}

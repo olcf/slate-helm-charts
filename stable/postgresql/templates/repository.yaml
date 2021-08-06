@@ -1,0 +1,33 @@
+{{- if .Values.backup.enabled }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "postgresql.fullname" . }}-stash
+data:
+  RESTIC_PASSWORD: {{ include "postgresql.fullname" . | b64enc }}
+type: Opaque
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "postgresql.fullname" . }}-stash
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: netapp-nfs
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  name: {{ include "postgresql.fullname" . }}
+spec:
+  backend:
+    local:
+      mountPath: /backups
+      persistentVolumeClaim:
+        claimName: {{ include "postgresql.fullname" . }}-stash
+    storageSecretName: {{ include "postgresql.fullname" . }}-stash
+{{- end }}

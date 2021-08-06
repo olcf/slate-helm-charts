@@ -1,0 +1,87 @@
+{
+  "type": "object",
+  "properties": {
+    "replicaCount": {
+      "type": "integer",
+      "default": 1,
+      "title": "Replicas",
+      "description": "Number of database pods to run, only one will be primary at any one time"
+    },
+    "version": {
+      "title": "Postgres Version",
+      "description": "Version of PostgreSQL",
+      "type": "string",
+      "enum": [
+        "13.2-debian"
+      ],
+      "default": "13.2-debian"
+    },
+    "resources": {
+      "type": "object",
+      "title": "Resources",
+      "description": "Define cpu and memory resources",
+      "properties": {
+        "requests": {
+          "description": "The minimum amount of resources required for the workload",
+          "properties": {
+            "cpu": {
+              "type": "string",
+              "title": "CPU",
+              "default": "500m"
+            },
+            "memory": {
+              "type": "string",
+              "title": "Memory",
+              "default": "512Mi"
+            }
+          }
+        },
+        "limits": {
+          "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+          "properties": {
+            "cpu": {
+              "type": "string",
+              "title": "CPU",
+              "default": "1"
+            },
+            "memory": {
+              "type": "string",
+              "title": "Memory",
+              "default": "1Gi"
+            }
+          }
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "title": "Storage",
+      "properties": {
+        "size": {
+          "type": "string",
+          "title": "Size"
+        },
+        "class": {
+          "type": "string",
+          "title": "Storage Class",
+          "enum": [
+            "netapp-block",
+            "netapp-nfs"
+          ],
+          "default": "netapp-block"
+        }
+      }
+    },
+    "backup": {
+      "type": "object",
+      "title": "Backup",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enabled",
+          "default": false
+        }
+      }
+    }
+  }
+}
