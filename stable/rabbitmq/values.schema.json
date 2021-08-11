@@ -1,61 +1,72 @@
 {
   "type": "object",
   "properties": {
-    "image": {
-      "title": "Image",
-      "description": "Deployment image",
-      "type": "string",
-      "default": "rabbitmq:3-management"
-    },
-    "size": {
-      "title": "Size",
-      "description": "Persistent disk size",
-      "type": "string",
-      "default": "1Gi"
-    },
-    "ingress": {
+    "deploy-image": {
+      "title": "Deployment",
       "type": "object",
-      "title": "Ingress",
       "properties": {
-        "enabled": {
-          "type": "boolean",
-          "title": "Enabled",
-          "default": true
-        }
-      }
-    },
-    "resources": {
-      "type": "object",
-      "title": "Resources",
-      "description": "Define cpu and memory resources",
-      "properties": {
-        "requests": {
-          "description": "The minimum amount of resources required for the workload",
+        "image": {
+          "title": "Image",
+          "description": "Deployment image",
+          "type": "string",
+          "default": "rabbitmq:3-management"
+        },
+        "persistence": {
+          "type": "object",
           "properties": {
-            "cpu": {
+            "size": {
+              "title": "Size",
+              "description": "Persistent disk size",
               "type": "string",
-              "title": "CPU",
-              "default": "500m"
-            },
-            "memory": {
-              "type": "string",
-              "title": "Memory",
-              "default": "512Mi"
+              "default": "1Gi"
             }
           }
         },
-        "limits": {
-          "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+        "ingress": {
+          "type": "object",
+          "title": "Ingress",
           "properties": {
-            "cpu": {
-              "type": "string",
-              "title": "CPU",
-              "default": "1"
+            "enabled": {
+              "type": "boolean",
+              "title": "Enabled",
+              "default": true
+            }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "title": "Resources",
+          "description": "Define cpu and memory resources",
+          "properties": {
+            "requests": {
+              "description": "The minimum amount of resources required for the workload",
+              "properties": {
+                "cpu": {
+                  "type": "string",
+                  "title": "CPU",
+                  "default": "500m"
+                },
+                "memory": {
+                  "type": "string",
+                  "title": "Memory",
+                  "default": "512Mi"
+                }
+              }
             },
-            "memory": {
-              "type": "string",
-              "title": "Memory",
-              "default": "1Gi"
+            "limits": {
+              "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+              "properties": {
+                "cpu": {
+                  "type": "string",
+                  "title": "CPU",
+                  "default": "1"
+                },
+                "memory": {
+                  "type": "string",
+                  "title": "Memory",
+                  "default": "1Gi"
+                }
+              }
             }
           }
         }
