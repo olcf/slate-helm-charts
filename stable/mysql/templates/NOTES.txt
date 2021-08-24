@@ -1,0 +1,21 @@
+There are multiple ways of accessing the deployed MySQL database.
+
+First, one can access the terminal of the MySQL pod deployed via the
+OpenShift portal. The credentials may also be retrieved from the UI
+via the Administrator View -> Workloads -> Secrets.
+
+Second, if the MySQL client is installed locally on your workstation, use
+port forwarding to connect to the database port using the username and
+password retrieved from the secrets. Commands used for this method would
+be similar to:
+
+  oc get secrets {{ include "mysql.fullname" . }}-auth -o jsonpath='{.data.\username}' | base64 -D
+  oc get secrets {{ include "mysql.fullname" . }}-auth -o jsonpath='{.data.\password}' | base64 -D
+  oc port-forward svc/{{ include "mysql.fullname" . }}-phpmyadmin 3306:3306
+
+{{- if .Values.phpmyadmin.enabled -}}
+Finally, since the phpMyAdmin interface was deployed, one can access the web
+interface via the route presented in the OpenShift portal or via the
+the HOST/PORT entry retrieved from the `oc get route` command prepended
+with "https://".
+{{- end -}}

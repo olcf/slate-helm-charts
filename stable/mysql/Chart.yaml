@@ -1,0 +1,9 @@
+apiVersion: v2
+name: mysql
+description: MySQL deployyment with NetApp persistent storage
+type: application
+version: 1.0.0
+icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
