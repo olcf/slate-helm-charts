@@ -1,0 +1,55 @@
+apiVersion: kubedb.com/v1alpha2
+kind: MongoDB
+metadata:
+  name: {{ include "mongodb.fullname" . }}
+  labels:
+    {{- include "mongodb.labels" . | nindent 4 }}
+spec:
+  version: {{ .Values.mongodb.spec.version | quote }}
+  {{- if .Values.mongodb.spec.authSecret }}
+  authSecret:
+      name: {{ .Values.mongodb.spec.authSecret }}
+{{- end }}
+  podTemplate:
+    spec:
+      resources:
+        {{- toYaml .Values.mongodb.spec.resources | nindent 8 }}
+  storageType: Durable
+  storage:
+    storageClassName: "netapp-nfs"
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ .Values.mongodb.spec.storage.size | quote }}
+  sslMode: disabled
+  terminationPolicy: {{ .Values.mongodb.spec.terminationPolicy }}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-{{ include "mongodb.fullname" . }}-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ include "mongodb.fullname" . }}
+  ingress:
+    - {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ include "mongodb.fullname" . }}
+  name: {{ include "mongodb.fullname" . }}
+spec:
+  ports:
+  - name: mongod
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: {{ include "mongodb.fullname" . }}
+  type: ClusterIP

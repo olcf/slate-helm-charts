@@ -1,0 +1,9 @@
+apiVersion: v2
+name: mongodb
+description: MongoDB deployment with NetApp persistent storage
+type: application
+version: 0.1.0
+icon: https://media.mongodb.org/ico/icon-leaf.png
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
