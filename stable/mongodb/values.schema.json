@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "title": "MongoDB 4.0 Database",
+    "description": "MongoDB 4.0 deployment with automatic backups",
+    "properties": {
+        "mongodb": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "type": "object",
+                    "properties": {
+                        "version": {
+                            "title": "MongoDB Version",
+                            "description": "The version of MongoDB to launch.",
+                            "type": "string",
+                            "default": "4.2.3",
+                            "enum": ["4.0.11-v1", "4.2.3", "4.4.6"]
+                        },
+                        "storage": {
+                            "type": "object",
+                            "properties": {
+                                "size": {
+                                    "title": "MongoDB Size",
+                                    "description": "This is a required field. The amount of storage to allocate for the MongoDB database.",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "terminationPolicy": {
+                            "title": "Termination Policy",
+                            "description": "Termination policy for the instance when MongoDB is removed.",
+                            "type": "string",
+                            "default": "WipeOut",
+                            "enum": ["Delete", "DoNotTerminate", "Halt", "WipeOut"]
+                        },
+                        "resources": {
+                            "type": "object",
+                            "title": "Resources",
+                            "description": "Define cpu and memory resources",
+                            "properties": {
+                                "requests": {
+                                    "description": "The minimum amount of resources required for the workload",
+                                    "properties": {
+                                        "cpu": {
+                                          "type": "string",
+                                          "title": "CPU",
+                                          "default": "500m"
+                                        },
+                                        "memory": {
+                                          "type": "string",
+                                          "title": "Memory",
+                                          "default": "512Mi"
+                                        }
+                                    }
+                                },
+                                "limits": {
+                                    "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+                                    "properties": {
+                                        "cpu": {
+                                          "type": "string",
+                                          "title": "CPU",
+                                          "default": "1"
+                                        },
+                                        "memory": {
+                                          "type": "string",
+                                          "title": "Memory",
+                                          "default": "1Gi"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "stash": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Backups",
+                    "description": "Whether or not to enable automatic backups. Defaults to false",
+                    "type": "boolean"
+                },
+                "retention_policy": {
+                    "type": "object",
+                    "properties": {
+                        "keep": {
+                            "title": "Number to Keep",
+                            "description": "Number of backups to keep. Defaults to the last five.",
+                            "type": "integer"
+                        },
+                        "name": {
+                            "title": "name",
+                            "description": "Name of regimen. Defaults to keep-last-5 with the default number of backups to keep is 5",
+                            "type": "string"
+                        }
+                    }
+                },
+                "schedule": {
+                    "title": "Backup Schedule",
+                    "description": "cron schedule for when to run backups. Defaults to 5:11 am daily",
+                    "type": "string"
+                },
+                "storage_size": {
+                    "title": "Backup Storage Size",
+                    "description": "Storage size to use for retained backups. Defaults to 1Gi",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

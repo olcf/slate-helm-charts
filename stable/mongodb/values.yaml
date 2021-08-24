@@ -1,0 +1,43 @@
+# Default values for MongoDB deployment
+
+## Used in place of the chart name. This setting is not recommended to be used.
+nameOverride: ""
+## Provides a name to substitute for the full names of resources
+fullnameOverride: ""
+
+# Settings used for a KubeDB MongoDB deployment
+mongodb:
+  spec:
+    version: "4.2.3"
+    storage:
+      size: 1Gi
+    ## Set to an already existing username and password combination to use for the root account.
+    ##  If not speified, a new secret will be automatically generated.
+    authSecret: ""
+    ## Termination policy to use when the resources are deleted. The KubeDB Default is Halt.
+    ##  Default here is set to WipeOut to allow for ease of deployment and removal.
+    ##  Refer to the KubeDB documentaiton for other options.
+    terminationPolicy: WipeOut
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+
+## Settings used to configure the automatic stash backups.
+stash:
+  ## Whether or not to enable automatic backups
+  enabled: false
+  ## Specifies the restic password to use for encrypting the backup. If not provided, it will
+  ##  be automatically set.
+  restic_password: ""
+  ## Retention policy to use for the backups. The values below specifiy a backup taken daily at 5:11 AM
+  ##  every day of the week, with a retention of the last 7 backups made.
+  retention_policy:
+    name: "keep-last-7"
+    keep: 7
+    prune: true
+  schedule: "11 5 * * *"
+  storage_size: 1Gi
