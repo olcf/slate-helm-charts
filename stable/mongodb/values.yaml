@@ -34,7 +34,7 @@ stash:
   ##  be automatically set.
   restic_password: ""
   ## Retention policy to use for the backups. The values below specifiy a backup taken daily at 5:11 AM
-  ##  every day of the week, with a retention of the last 7 backups made.
+  ##  every day of the week, with a retention of the last 5 backups made.
   retention_policy:
     name: "keep-last-5"
     keep: 5
