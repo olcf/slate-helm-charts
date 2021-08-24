@@ -36,8 +36,8 @@ stash:
   ## Retention policy to use for the backups. The values below specifiy a backup taken daily at 5:11 AM
   ##  every day of the week, with a retention of the last 7 backups made.
   retention_policy:
-    name: "keep-last-7"
-    keep: 7
+    name: "keep-last-5"
+    keep: 5
     prune: true
   schedule: "11 5 * * *"
   storage_size: 1Gi
