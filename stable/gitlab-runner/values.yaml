@@ -4,21 +4,7 @@
 ## where {VERSION} is taken from Chart.yaml from appVersion field
 ##
 ## ref: https://hub.docker.com/r/gitlab/gitlab-runner/tags/
-##
-## Note: If you change the image to the ubuntu release
-##       don't forget to change the securityContext;
-##       these images run on different user IDs.
-##
-# image: gitlab/gitlab-runner:alpine-v11.6.0
-
-## Specify a imagePullPolicy for the main runner deployment
-## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
-##
-## Note: it does not apply to job containers launched by this executor.
-## Use `pull_policy` in [runners.kubernetes] to change it.
-##
-## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
-##
+# image: gitlab/gitlab-runner:alpine-v14.2.0
 imagePullPolicy: IfNotPresent
 
 ## Specifying ImagePullSecrets on a Pod
@@ -29,21 +15,21 @@ imagePullPolicy: IfNotPresent
 #   - name: "image-pull-secret"
 
 ## How many runner pods to launch.
-# replicas: 1
+replicas: 1
 
 ## How many old ReplicaSets for this Deployment you want to retain
-# revisionHistoryLimit: 10
+revisionHistoryLimit: 10
 
 ## The GitLab Server URL (with protocol) that want to register the runner against
 ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
 ##
-# gitlabUrl: http://gitlab.your-domain.com/
+gitlabUrl: https://gitlab.ccs.ornl.gov/
 
 ## The Registration Token for adding new Runners to the GitLab Server. This must
 ## be retrieved from your GitLab Instance.
 ## ref: https://docs.gitlab.com/ce/ci/runners/README.html
 ##
-# runnerRegistrationToken: ""
+runnerRegistrationToken: ""
 
 ## The Runner Token for adding new Runners to the GitLab Server. This must
 ## be retrieved from your GitLab Instance. It is token of already registered runner.
@@ -58,7 +44,7 @@ imagePullPolicy: IfNotPresent
 ## non-existant runners. Un-registering the runner before termination mitigates this issue.
 ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-unregister
 ##
-# unregisterRunners: true
+unregisterRunners: true
 
 ## When stopping the runner, give it time to wait for its jobs to terminate.
 ##
@@ -108,56 +94,13 @@ checkInterval: 30
 
 ## For RBAC support:
 rbac:
-  create: false
-
-  ## Define specific rbac permissions.
-  ## DEPRECATED: see .Values.rbac.rules
-  # resources: ["pods", "pods/exec", "secrets"]
-  # verbs: ["get", "list", "watch", "create", "patch", "delete"]
-
-  ## Define list of rules to be added to the rbac role permissions.
-  ## Each rule supports the keys:
-  ## - apiGroups: default "" (indicates the core API group) if missing or empty.
-  ## - resources: default "*" if missing or empty.
-  ## - verbs: default "*" if missing or empty.
-  rules: []
-  # - resources: ["pods", "secrets"]
-  #   verbs: ["get", "list", "watch", "create", "patch", "delete"]
-  # - apiGroups: [""]
-  #   resources: ["pods/exec"]
-  #   verbs: ["create", "patch", "delete"]
-
-  ## Run the gitlab-bastion container with the ability to deploy/manage containers of jobs
-  ## cluster-wide or only within namespace
-  clusterWideAccess: false
-
-  ## Use the following Kubernetes Service Account name if RBAC is disabled in this Helm chart (see rbac.create)
-  ##
-  # serviceAccountName: default
-
-  ## Specify annotations for Service Accounts, useful for annotations such as eks.amazonaws.com/role-arn
-  ##
-  ## ref: https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html
-  ##
-  # serviceAccountAnnotations: {}
-
-  ## Use podSecurity Policy
-  ## ref: https://kubernetes.io/docs/concepts/policy/pod-security-policy/
-  podSecurityPolicy:
-    enabled: false
-    resourceNames:
-    - gitlab-runner
-
-  ## Specify one or more imagePullSecrets used for pulling the runner image
-  ##
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account
-  ##
-  # imagePullSecrets: []
+  create: true
+  serviceAccountName: gitlab-runner
 
 ## Configure integrated Prometheus metrics exporter
 ## ref: https://docs.gitlab.com/runner/monitoring/#configuration-of-the-metrics-http-server
 metrics:
-  enabled: true
+  enabled: false
 
 ## Configuration for the Pods that the runner launches for each new job
 ##
@@ -332,10 +275,10 @@ runners:
   ## Build Container specific configuration
   ##
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
-  builds: {}
-    # cpuLimit: 200m
+  builds:
+    cpuLimit: 1
     # cpuLimitOverwriteMaxAllowed: 400m
-    # memoryLimit: 256Mi
+    memoryLimit: 1Gi
     # memoryLimitOverwriteMaxAllowed: 512Mi
     # cpuRequests: 100m
     # cpuRequestsOverwriteMaxAllowed: 200m
@@ -373,7 +316,7 @@ runners:
 
   ## Service Account to be used for runners
   ##
-  # serviceAccountName:
+  serviceAccountName: gitlab-runner
 
   ## If Gitlab is not reachable through $CI_SERVER_URL
   ##
@@ -411,8 +354,8 @@ runners:
   ## ref: https://docs.gitlab.com/runner/commands/#gitlab-runner-register
   ##
   ## DEPRECATED: See https://docs.gitlab.com/runner/install/kubernetes.html#additional-configuration
-  # env:
-  #   NAME: VALUE
+  env:
+    HOME: /tmp
 
 
 ## Specify the name of the scheduler which used to schedule runner pods.
@@ -420,29 +363,16 @@ runners:
 ## ref: https://kubernetes.io/docs/reference/scheduling
 # schedulerName: "my-custom-scheduler"
 
-## Configure securitycontext
-## ref: http://kubernetes.io/docs/user-guide/security-context/
-##
-securityContext:
-  runAsUser: 100
-  # runAsGroup: 65533
-  fsGroup: 65533
-  # supplementalGroups: [65533]
-
-  ## Note: values for the ubuntu image:
-  # runAsUser: 999
-  # fsGroup: 999
-
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
-resources: {}
-  # limits:
-  #   memory: 256Mi
-  #   cpu: 200m
-  # requests:
-  #   memory: 128Mi
-  #   cpu: 100m
+resources:
+  limits:
+    memory: 500Mi
+    cpu: 300m
+  requests:
+    memory: 500Mi
+    cpu: 300m
 
 ## Affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -471,9 +401,9 @@ tolerations: []
 ## ref: `gitlab-runner register --help`
 ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
 ##
-# envVars:
-#   - name: RUNNER_EXECUTOR
-#     value: kubernetes
+envVars:
+  - name: HOME
+    value: /home/gitlab-runner
 
 ## list of hosts and IPs that will be injected into the pod's hosts file
 hostAliases: []
@@ -487,7 +417,14 @@ hostAliases: []
   #   - "foo.remote"
   #   - "bar.remote"
 
-## Annotations to be added to manager pod
+## Annotations to be added to the pod to enable batch job submission
+##
+## If set to true, the following to annotations will be added:
+##    ccs.ornl.gov/batchScheduler: "true"
+##    ccs.ornl.gov/fs: olcf
+batchAnnotations: false
+
+## Other Annotations to be added to manager pod
 ##
 podAnnotations: {}
   # Example:

@@ -30,6 +30,10 @@ spec:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9252'
         {{- end }}
+        {{- if .Values.batchAnnotations }}
+        ccs.ornl.gov/batchScheduler: "true"
+        ccs.ornl.gov/fs: olcf
+        {{- end }}
         {{- range $key, $value := .Values.podAnnotations }}
         {{   $key }}: {{ $value | quote }}
         {{- end }}
@@ -38,19 +42,11 @@ spec:
       schedulerName: {{ .Values.schedulerName }}
       {{- end }}
       securityContext:
-        runAsUser: {{ .Values.securityContext.runAsUser }}
-        {{- if .Values.securityContext.runAsGroup }}
-        runAsGroup: {{ .Values.securityContext.runAsGroup }}
-        {{- end}}
-        {{- if .Values.securityContext.fsGroup }}
-        fsGroup: {{ .Values.securityContext.fsGroup }}
-        {{- end}}
-        {{- if .Values.securityContext.supplementalGroups }}
+        runAsUser: {{ include "library.runAsUser" . }}
+        runAsGroup: {{ include "library.runAsGroup" . }}
+        fsGroup: {{ include "library.runAsGroup" . }}
         supplementalGroups:
-        {{-   range .Values.securityContext.supplementalGroups }}
-          - {{ . }}
-        {{-   end}}
-        {{- end}}
+          - {{ include "library.runAsGroup" . }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       initContainers:
       - name: configure
@@ -78,7 +74,7 @@ spec:
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-      serviceAccountName: {{ if .Values.rbac.create }}{{ include "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
+      serviceAccountName: "{{ .Values.rbac.serviceAccountName }}"
       containers:
       - name: {{ include "gitlab-runner.fullname" . }}
         image: {{ include "gitlab-runner.image" . }}
