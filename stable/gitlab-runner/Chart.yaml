@@ -1,0 +1,14 @@
+apiVersion: v2
+name: gitlab-runner
+description: GitLab Runner
+type: application
+version: 1.0.0
+appVersion: 14.2.0
+icon: https://gitlab.com/uploads/-/system/project/avatar/250833/runner_logo.png
+maintainers:
+- name: Platforms Group
+  url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
+dependencies:
+- name: library
+  version: 0.1.0
+  repository: https://olcf.github.io/slate-helm-charts

@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "title": "GitLab Runner",
+    "description": "GitLab Runner deployment with optional batch scheduler integration",
+    "properties": {
+        "batchAnnotations": {
+            "title": "Enable Batch Scheduler",
+            "type": "boolean",
+            "description": "Whether or not to enable batch scheduler integration",
+            "default": false
+        },
+        "gitlabUrl": {
+            "title": "GitLab URL",
+            "type": "string",
+            "description": "URL of the GitLab server to register against",
+            "default": "https://gitlab.ccs.ornl.gov/"
+        },
+        "runnerRegistrationToken": {
+          "title": "Registration Token",
+          "type": "string",
+          "description": "The registration token for adding new runners to the GitLab Server"
+        },
+        "resources": {
+            "title": "Resources",
+            "type": "object",
+            "description": "Define cpu and memory resources",
+            "properties": {
+                "limits": {
+                    "description": "The absolute limit for the resource request, if the workload exceeds this it could get evicted",
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "title": "CPU",
+                            "type": "string",
+                            "default": "300m"
+                        },
+                        "memory": {
+                            "title": "Memory",
+                            "type": "string",
+                            "default": "500Mi"
+                        }
+                    }
+                },
+                "requests": {
+                    "description": "The minimum amount of resources required for the workload",
+                    "type": "object",
+                    "properties": {
+                        "cpu": {
+                            "title": "CPU",
+                            "type": "string",
+                            "default": "300m"
+                        },
+                        "memory": {
+                            "title": "Memory",
+                            "type": "string",
+                            "default": "500Mi"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
