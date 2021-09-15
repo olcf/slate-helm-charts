@@ -423,6 +423,7 @@ hostAliases: []
 ##    ccs.ornl.gov/batchScheduler: "true"
 ##    ccs.ornl.gov/fs: olcf
 batchAnnotations: false
+ccsFs: "olcf"
 
 ## Other Annotations to be added to manager pod
 ##

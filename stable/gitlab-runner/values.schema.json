@@ -13,6 +13,16 @@
             "description": "Whether or not to enable batch scheduler integration",
             "default": false
         },
+        "ccsFs": {
+            "Title": "OLCF Filesystem Annotation",
+            "type": "string",
+            "description": "OLCF filesystem annotation value to use when the batch scheduler is enabled. For marble, use olcf. For onyx, use ccsopen.",
+            "enum": [
+              "ccsopen",
+              "olcf"
+            ],
+            "default": "olcf"
+        },
         "gitlabUrl": {
             "title": "GitLab URL",
             "type": "string",

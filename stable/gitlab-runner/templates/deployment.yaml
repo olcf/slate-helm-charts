@@ -32,7 +32,7 @@ spec:
         {{- end }}
         {{- if .Values.batchAnnotations }}
         ccs.ornl.gov/batchScheduler: "true"
-        ccs.ornl.gov/fs: olcf
+        ccs.ornl.gov/fs: {{ .Values.ccsFs | quote }}
         {{- end }}
         {{- range $key, $value := .Values.podAnnotations }}
         {{   $key }}: {{ $value | quote }}
