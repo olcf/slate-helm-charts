@@ -1,0 +1,6 @@
+dependencies:
+- name: library
+  repository: https://olcf.github.io/slate-helm-charts
+  version: 0.1.0
+digest: sha256:b3366f9335df52229b9237a876df83c97c72c3b567824fd4f8d263a846657b76
+generated: "2021-09-17T10:29:22.835368-04:00"

@@ -48,4 +48,8 @@ spec:
     name: {{ .Values.stash.retention_policy.name | quote }}
     keepLast: {{ .Values.stash.retention_policy.keep }}
     prune: {{ .Values.stash.retention_policy.prune }}
+  runtimeSettings:
+    pod:
+      securityContext:
+        runAsUser: {{ include "library.runAsUser" . }}
 {{- end }}

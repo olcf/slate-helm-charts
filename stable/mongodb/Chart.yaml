@@ -2,8 +2,12 @@ apiVersion: v2
 name: mongodb
 description: MongoDB deployment with NetApp persistent storage
 type: application
-version: 1.0.0
+version: 1.1.0
 icon: https://media.mongodb.org/ico/icon-leaf.png
 maintainers:
   - name: Platforms Group
     url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
+dependencies:
+- name: library
+  version: 0.1.0
+  repository: https://olcf.github.io/slate-helm-charts
