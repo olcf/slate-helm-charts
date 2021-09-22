@@ -2,7 +2,7 @@ apiVersion: v2
 name: gitlab-runner
 description: GitLab Runner
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: 14.2.0
 icon: https://gitlab.com/uploads/-/system/project/avatar/250833/runner_logo.png
 maintainers:
