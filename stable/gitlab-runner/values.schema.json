@@ -1,8 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
-    "title": "GitLab Runner",
-    "description": "GitLab Runner deployment with optional batch scheduler integration",
     "required": [
       "runnerRegistrationToken"
     ],
