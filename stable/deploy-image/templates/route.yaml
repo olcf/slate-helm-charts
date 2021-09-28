@@ -24,5 +24,5 @@ spec:
     name: {{ include "deploy-image.fullname" . }}
     weight: 100
   port:
-    targetPort: {{ .Values.service.port }}
+    targetPort: {{ index .Values.service.ports 0 }} 
 {{- end }}
