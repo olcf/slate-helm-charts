@@ -2,7 +2,7 @@ apiVersion: v2
 name: deploy-image
 description: Deploy a container image
 type: application
-version: 0.4.1
+version: 0.5.0
 icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
 maintainers:
   - name: Platforms Group

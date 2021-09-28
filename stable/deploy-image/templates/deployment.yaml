@@ -94,10 +94,6 @@ spec:
             - name: {{ (split "=" .)._0 | quote }}
               value: {{ (split "=" .)._1 | quote }}
           {{- end }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
           volumeMounts:
           {{- range $index, $element := .Values.writableVolumes }}
             - name: emptydir-vol-{{ $index }}

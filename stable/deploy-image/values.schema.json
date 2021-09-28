@@ -70,10 +70,13 @@
       "description": "Config for exposing application as an in-cluster network service",
       "properties": {
         "port": {
-          "type": "integer",
+          "type": "array",
           "title": "Port",
-          "description": "Port that the application is listening on for incoming connections",
-          "default": 8080
+          "description": "Port(s) that the application is listening on for incoming connections",
+          "items": {
+            "type": "integer",
+            "default": 8080
+          }
         }
       },
       "type": "object"

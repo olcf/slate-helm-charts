@@ -7,9 +7,11 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
+    {{- range .Values.service.ports }}
+    - port: {{ . }}
+      targetPort: {{ . }}
       protocol: TCP
-      name: port-1
+      name: port-{{ . }}
+    {{- end }}
   selector:
     {{- include "deploy-image.selectorLabels" . | nindent 4 }}
