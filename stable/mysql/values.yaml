@@ -29,6 +29,9 @@ mysql:
       requests:
         cpu: 500m
         memory: 512Mi
+  primary:
+    service:
+      type: ClusterIP
 
 ## Settings used to drive the configuration of phpMyAdmin
 phpmyadmin:

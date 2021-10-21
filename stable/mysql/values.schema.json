@@ -1,8 +1,6 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
-    "title": "MySQL Database",
-    "description": "MySQL deployment with automatic backups and fronted by phpMyAdmin",
     "properties": {
         "mysql": {
             "type": "object",
@@ -69,6 +67,21 @@
                                           "default": "1Gi"
                                         }
                                     }
+                                }
+                            }
+                        }
+                    }
+                },
+                "primary": {
+                    "type": "object",
+                    "properties": {
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "default": "ClusterIP",
+                                    "enum": ["ClusterIP", "NodePort"]
                                 }
                             }
                         }

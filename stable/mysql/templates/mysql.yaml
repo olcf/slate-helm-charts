@@ -30,6 +30,12 @@ spec:
       resources:
         {{- toYaml .Values.mysql.spec.resources | nindent 8 }}
   terminationPolicy: {{ .Values.mysql.spec.terminationPolicy | quote }}
+{{- if .Values.mysql.primary.service.type }}
+  serviceTemplates:
+  - alias: primary
+    spec:
+      type: {{ .Values.mysql.primary.service.type }}
+{{- end }}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
