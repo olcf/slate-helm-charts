@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   deploy-image:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.114679-04:00"
+    created: "2021-10-29T14:41:38.087673-04:00"
     description: Deploy a container image
     digest: a552bb97518985ac2c75475d2ffe23cdca777e66bf6591b8643d89aaf126a5fc
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -15,7 +15,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.5.1.tgz
     version: 0.5.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.113682-04:00"
+    created: "2021-10-29T14:41:38.087157-04:00"
     description: Deploy a container image
     digest: fc88644f6f3630a2b16eda4e23248a8a0805c03704608ac8da080b317dfec014
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -28,7 +28,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.112589-04:00"
+    created: "2021-10-29T14:41:38.086572-04:00"
     description: Deploy a container image
     digest: ba02d0cde8b240aad83ac3d7938a81931d42f5a594f174c40e3ced805df9e8a2
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -41,7 +41,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.110458-04:00"
+    created: "2021-10-29T14:41:38.085462-04:00"
     description: Deploy a container image
     digest: dfe8df9690c29eb1ede26bfbcfdd2fc2fee471d7632755c5b0cdb5b13b188b8b
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -54,7 +54,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.10933-04:00"
+    created: "2021-10-29T14:41:38.084935-04:00"
     description: Deploy a container image
     digest: c81879c1fc7f77426819a1b9c19de7c6f97fe4d2e2af0b9a3d7d0302b4116694
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -67,7 +67,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.3.2.tgz
     version: 0.3.2
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.107997-04:00"
+    created: "2021-10-29T14:41:38.084444-04:00"
     description: Deploy a container image
     digest: 720528c098adc2348168614990bdca5aa4516aee4b17394beaf224eb92cb8b1b
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -80,7 +80,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.106894-04:00"
+    created: "2021-10-29T14:41:38.083945-04:00"
     description: Deploy a container image
     digest: fac809a723d80c32b196d073644c12ff37c0db80e573720eea1c7dcfcbcba47a
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -93,7 +93,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.105467-04:00"
+    created: "2021-10-29T14:41:38.083441-04:00"
     description: Deploy a container image
     digest: ee272478b4434a476a9846b0268af2bf7ed25d199833d029011307840b843356
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -106,7 +106,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.104359-04:00"
+    created: "2021-10-29T14:41:38.08297-04:00"
     description: Deploy a container image
     digest: 9b71695737b65ea4f63dba8241b41227f38f6b763ccee5f5308ad7cd3a8e1c42
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -119,7 +119,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/deploy-image-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.103646-04:00"
+    created: "2021-10-29T14:41:38.082568-04:00"
     description: Deploy a container image
     digest: ef90bc4d6bb6fc793101b949e6ef2584a822344604b92d53106a9f92aaf817f3
     icon: https://raw.githubusercontent.com/tabler/tabler-icons/master/icons-png/new-section.png
@@ -133,7 +133,7 @@ entries:
     version: 0.1.0
   desktop-vnc:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.115333-04:00"
+    created: "2021-10-29T14:41:38.088037-04:00"
     description: A desktop served over HTTPS with noVNC
     digest: ba5edd345d7e7eb0879297d88f3463191380ecedb704e4843a87313d5d8707bf
     icon: https://raw.githubusercontent.com/novnc/noVNC/master/app/images/icons/novnc-48x48.png
@@ -148,7 +148,7 @@ entries:
   gitlab-runner:
   - apiVersion: v2
     appVersion: 14.2.0
-    created: "2021-10-21T11:02:18.117169-04:00"
+    created: "2021-10-29T14:41:38.089214-04:00"
     dependencies:
     - name: library
       repository: https://olcf.github.io/slate-helm-charts
@@ -166,7 +166,16 @@ entries:
     version: 1.0.1
   library:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.117696-04:00"
+    created: "2021-10-29T14:41:38.089508-04:00"
+    description: A Helm chart for Kubernetes
+    digest: 13852622ec8f20b23a387b816ebd207e23abff2485fe6fb268750a14970299fc
+    name: library
+    type: library
+    urls:
+    - https://olcf.github.io/slate-helm-charts/charts/library-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    created: "2021-10-29T14:41:38.089364-04:00"
     description: A Helm chart for Kubernetes
     digest: 10bec7238825dac8ed61f454ad059fae2a2953a2e77c65e2b6fa9cc9080020e1
     name: library
@@ -176,7 +185,7 @@ entries:
     version: 0.1.0
   minio-nfs:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.120145-04:00"
+    created: "2021-10-29T14:41:38.090678-04:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared
       via NFS
     digest: e520741cc01145a66cc6dd2fb8ac6b4179cb1a9eaa30dc4e00354b3e1c2f00ea
@@ -190,7 +199,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/minio-nfs-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.11892-04:00"
+    created: "2021-10-29T14:41:38.090101-04:00"
     description: MinIO Object Storage Server with NetApp persistent storage shared
       via NFS
     digest: 28bc8f526fdaca89265af839074aaa668ad9ade6e390d98ea49ef100a120f555
@@ -206,7 +215,7 @@ entries:
     version: 1.0.0
   mongodb:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.12242-04:00"
+    created: "2021-10-29T14:41:38.091695-04:00"
     dependencies:
     - name: library
       repository: https://olcf.github.io/slate-helm-charts
@@ -223,7 +232,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/mongodb-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.121153-04:00"
+    created: "2021-10-29T14:41:38.091118-04:00"
     description: MongoDB deployment with NetApp persistent storage
     digest: b63ebb1a4dd64e970bf56ed2be2d0bd4b08f65adbe376e3bcf4809107bd30dd7
     icon: https://media.mongodb.org/ico/icon-leaf.png
@@ -237,7 +246,7 @@ entries:
     version: 1.0.0
   mysql:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.12392-04:00"
+    created: "2021-10-29T14:41:38.092779-04:00"
     description: MySQL deployyment with NetApp persistent storage
     digest: f337e5f30a4ea4a80a0ffdf4b2a55378d8a548b150782fddf540e79b0d5db7fc
     icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
@@ -250,7 +259,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/mysql-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.12327-04:00"
+    created: "2021-10-29T14:41:38.092241-04:00"
     description: MySQL deployyment with NetApp persistent storage
     digest: 7bebb99a1192afe0304933a8a3874f0f1efab8a2486bc8463252e1830e771ac0
     icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
@@ -262,9 +271,27 @@ entries:
     urls:
     - https://olcf.github.io/slate-helm-charts/charts/mysql-1.0.0.tgz
     version: 1.0.0
+  nginx:
+  - apiVersion: v2
+    appVersion: 1.21.1
+    created: "2021-10-29T14:41:38.093373-04:00"
+    dependencies:
+    - name: library
+      repository: https://olcf.github.io/slate-helm-charts
+      version: 0.1.1
+    description: A Helm chart for deploying nginx on Slate systems
+    digest: a019f67e2b40395d70efe20ef2fba9bfa54e9f7977c35510cc7745bdd199eeb2
+    maintainers:
+    - name: Platforms Group
+      url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/
+    name: nginx
+    type: application
+    urls:
+    - https://olcf.github.io/slate-helm-charts/charts/nginx-0.1.0.tgz
+    version: 0.1.0
   postgresql:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.125515-04:00"
+    created: "2021-10-29T14:41:38.094252-04:00"
     dependencies:
     - name: library
       repository: https://olcf.github.io/slate-helm-charts
@@ -281,7 +308,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/postgresql-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.124729-04:00"
+    created: "2021-10-29T14:41:38.093805-04:00"
     dependencies:
     - name: library
       repository: https://olcf.github.io/slate-helm-charts
@@ -299,7 +326,7 @@ entries:
     version: 0.1.0
   rabbitmq:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.130337-04:00"
+    created: "2021-10-29T14:41:38.097315-04:00"
     dependencies:
     - name: deploy-image
       repository: https://olcf.github.io/slate-helm-charts
@@ -316,7 +343,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/rabbitmq-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.129109-04:00"
+    created: "2021-10-29T14:41:38.096569-04:00"
     dependencies:
     - name: deploy-image
       repository: https://olcf.github.io/slate-helm-charts
@@ -333,7 +360,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/rabbitmq-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.127593-04:00"
+    created: "2021-10-29T14:41:38.095005-04:00"
     dependencies:
     - name: deploy-image
       repository: https://olcf.github.io/slate-helm-charts
@@ -351,7 +378,7 @@ entries:
     version: 0.1.0
   redis:
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.131644-04:00"
+    created: "2021-10-29T14:41:38.097917-04:00"
     description: A Helm chart for Kubernetes
     digest: 91e1508bc7335acf009beabd57e45575df45315b9a95e0552cd18cc96216f0ef
     icon: https://redis.io/images/redis-small.png
@@ -364,7 +391,7 @@ entries:
     - https://olcf.github.io/slate-helm-charts/charts/redis-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
-    created: "2021-10-21T11:02:18.130998-04:00"
+    created: "2021-10-29T14:41:38.09761-04:00"
     description: A Helm chart for Kubernetes
     digest: 9822b5a6331830c33a097d21cdfcccf7a9b044bc66c70ce6cdd2fd3b60a7f985
     icon: https://redis.io/images/redis-small.png
@@ -376,4 +403,4 @@ entries:
     urls:
     - https://olcf.github.io/slate-helm-charts/charts/redis-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-21T11:02:18.102307-04:00"
+generated: "2021-10-29T14:41:38.08202-04:00"

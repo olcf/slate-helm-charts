@@ -1,0 +1,97 @@
+{
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "image": {
+      "title": "Image",
+      "description": "Nginx container image to run",
+      "properties": {
+        "repo": {
+          "title": "Repository",
+          "type": "string",
+          "default": "nginxinc/nginx-unprivileged"
+        },
+        "tag": {
+          "title": "Tag",
+          "type": "string",
+          "default": "1.21.1"
+        }
+      },
+      "type": "object"
+    },
+    "properties": {
+      "replicaCount": {
+        "type": "integer",
+        "default": 1,
+        "title": "Replicas",
+        "description": "Number of copies of the application to run simultaneously"
+      },
+      "ccsFs": {
+        "Title": "OLCF Filesystem Annotation",
+        "type": "string",
+        "description": "OLCF filesystem annotation value to use when the batch scheduler is enabled. For marble, use olcf. For onyx, use ccsopen.",
+        "enum": [
+          "ccsopen",
+          "olcf"
+        ],
+        "default": "olcf"
+    },
+      "ingress": {
+        "title": "Ingress",
+        "description": "Manage external out-of-cluster access to service",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "description": "Check if you want to enable ingress",
+            "default": false
+          },
+          "external": {
+            "type": "boolean",
+            "title": "External Route",
+            "description": "Check if you want to enable routing traffic from Internet (requires project-specific settings enabled by OLCF)",
+            "default": false
+          }
+        },
+        "type": "object"
+      },
+      "resources": {
+        "type": "object",
+        "title": "Resources",
+        "description": "Define cpu and memory resources",
+        "properties": {
+          "requests": {
+            "description": "The minimum amount of resources required for the workload",
+            "properties": {
+              "cpu": {
+                "type": "string",
+                "title": "CPU",
+                "default": "500m"
+              },
+              "memory": {
+                "type": "string",
+                "title": "Memory",
+                "default": "2Gi"
+              }
+            }
+          },
+          "limits": {
+            "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+            "properties": {
+              "cpu": {
+                "type": "string",
+                "title": "CPU",
+                "default": "500m"
+              },
+              "memory": {
+                "type": "string",
+                "title": "Memory",
+                "default": "2Gi"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
