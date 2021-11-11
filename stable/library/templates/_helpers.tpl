@@ -27,3 +27,13 @@
   {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "library.project" -}}
+{{- $ns := lookup "v1" "Namespace" "" .Release.Namespace }}
+{{- if $ns }}
+  {{- $value := index $ns.metadata.labels "ccs.ornl.gov/project" }}
+  {{- if $value }}
+    {{- printf "%s" $value }}
+  {{- end }}
+{{- end }}
+{{- end }}
