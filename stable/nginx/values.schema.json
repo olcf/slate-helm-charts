@@ -1,0 +1,107 @@
+{
+    "type": "object",
+    "required": [
+      "image"
+    ],
+    "image": {
+      "title": "Image",
+      "description": "Nginx container image to run",
+      "properties": {
+        "repo": {
+          "title": "Repository",
+          "type": "string",
+          "default": "nginxinc/nginx-unprivileged"
+        },
+        "tag": {
+          "title": "Tag",
+          "type": "string",
+          "default": "1.21.1"
+        }
+      },
+      "type": "object"
+    },
+    "properties": {
+      "replicaCount": {
+        "type": "integer",
+        "default": 1,
+        "title": "Replicas",
+        "description": "Number of copies of the application to run simultaneously"
+      },
+      "ccsFs": {
+        "title": "OLCF Filesystem Annotation",
+        "type": "string",
+        "description": "OLCF filesystem annotation value to use when the batch scheduler is enabled. For marble, use olcf. For onyx, use ccsopen.",
+        "enum": [
+          "ccsopen",
+          "olcf"
+        ],
+        "default": "olcf"
+    },
+      "ingress": {
+        "title": "Ingress",
+        "description": "Manage external out-of-cluster access to service",
+        "properties": {
+          "external": {
+            "type": "boolean",
+            "title": "External Route",
+            "description": "Check if you want to enable routing traffic from Internet (requires project-specific settings enabled by OLCF)",
+            "default": false
+          },
+          "cluster": {
+            "Title": "Slate Cluster",
+            "type": "string",
+            "description": "This must be set to the cluster being deployed to unless setting the Host URL",
+            "enum": [
+              "granite",
+              "marble",
+              "onyx"
+            ],
+            "default": "marble"
+          },
+          "hostOverride": {
+            "type": "string",
+            "title": "Host URL",
+            "description": "Set a custom host URL, this defaults to <releasename>-<namespace>.apps.<cluster>.ccs.ornl.gov"
+          }
+        },
+        "type": "object"
+      },
+      "resources": {
+        "type": "object",
+        "title": "Resources",
+        "description": "Define cpu and memory resources",
+        "properties": {
+          "requests": {
+            "description": "The minimum amount of resources required for the workload",
+            "properties": {
+              "cpu": {
+                "type": "string",
+                "title": "CPU",
+                "default": "500m"
+              },
+              "memory": {
+                "type": "string",
+                "title": "Memory",
+                "default": "2Gi"
+              }
+            }
+          },
+          "limits": {
+            "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+            "properties": {
+              "cpu": {
+                "type": "string",
+                "title": "CPU",
+                "default": "500m"
+              },
+              "memory": {
+                "type": "string",
+                "title": "Memory",
+                "default": "2Gi"
+              }
+            }
+          }
+        }
+      }
+    }
+  }

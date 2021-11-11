@@ -1,0 +1,31 @@
+{{- if .Values.ingress.enabled -}}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "nginx.fullname" . }}-route
+  labels:
+    {{- include "nginx.labels" . | nindent 4 }}
+    {{- if .Values.ingress.external }}
+    ccs.ornl.gov/externalRoute: "true"
+    {{- end }}
+spec:
+  {{- if .Values.ingress.hostOverride }}
+  host: {{ .Values.ingress.hostOverride }}
+  {{- else }}
+  host: {{ include "nginx.fullname" . }}-{{ .Release.Namespace }}.apps.{{ .Values.ingress.cluster }}.{{ .Values.ingress.domain }}
+  {{- end }}
+  to:
+    kind: Service
+    name: {{ include "nginx.fullname" . }}
+    weight: 100
+  port:
+    targetPort: {{ .Values.service.port }}
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+{{- end }}
