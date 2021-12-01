@@ -11,6 +11,11 @@ spec:
   #   replicas: 1
   version: {{ .Values.version | quote }}
 
+  serviceTemplates:
+    - alias: primary
+      spec:
+        type: {{ .Values.serviceTemplates.primary.type }}
+
   storageType: Durable
   storage:
     storageClassName: {{ .Values.storage.class | quote }}

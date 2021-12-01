@@ -31,7 +31,7 @@
           }
         },
         "limits": {
-          "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+          "description": "The absolute limit for the resource request, if the workload exceeds this it could get evicted",
           "properties": {
             "cpu": {
               "type": "string",
@@ -47,6 +47,26 @@
         }
       }
     },
+    "serviceTemplates": {
+      "type": "object",
+      "properties": {
+          "primary": {
+              "type": "object",
+              "description": "Type of service to create",
+              "properties": {
+                  "type": {
+                      "type": "string",
+                      "title": "Type",
+                      "enum": [
+                        "ClusterIP",
+                        "NodePort"
+                      ],
+                      "default": "ClusterIP"
+                  }
+              }
+          }
+      }
+  },
     "storage": {
       "type": "object",
       "title": "Storage",
