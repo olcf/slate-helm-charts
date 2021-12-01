@@ -3,7 +3,7 @@ name: redis
 description: A Helm chart for Kubernetes
 type: application
 icon: https://redis.io/images/redis-small.png
-version: 0.2.0
+version: 0.3.0
 maintainers:
   - name: Platforms Group
     url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/

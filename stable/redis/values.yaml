@@ -3,6 +3,10 @@ version: 6.0.6
 backup:
   enabled: false
 
+serviceTemplates:
+  primary:
+    type: ClusterIP
+
 storage:
   size: 1Gi
   class: netapp-block
