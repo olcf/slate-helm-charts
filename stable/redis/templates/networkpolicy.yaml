@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "redis.fullname" . }}-allow-kubedb
+  name: allow-kubedb-access-to-{{ include "redis.fullname" . }}
 spec:
   ingress:
   - from:
@@ -13,3 +13,18 @@ spec:
       app.kubernetes.io/managed-by: kubedb.com
   policyTypes:
   - Ingress
+{{- if eq .Values.serviceTemplates.primary.type "NodePort" }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all-access-to-nodeport-{{ include "redis.fullname" . }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/managed-by: kubedb.com
+  ingress:
+    - {}
+  policyTypes:
+  - Ingress
+{{- end }}
