@@ -18,13 +18,15 @@ spec:
     prune: true
   runtimeSettings:
     pod:
-      resources:
-        requests:
-          cpu: 1
-          memory: 512Mi
-        limits:
-          cpu: 1
-          memory: 512Mi
       securityContext:
         runAsUser: {{ include "library.runAsUser" . }}
+    container:
+      resources:
+          requests:
+            cpu: 1
+            memory: 512Mi
+          limits:
+            cpu: 1
+            memory: 512Mi
+
 {{- end }}
