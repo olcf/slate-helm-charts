@@ -17,14 +17,16 @@ spec:
     keepLast: 5
     prune: true
   runtimeSettings:
-    container:
-      resources:
-        requests:
-          cpu: 1
-          memory: 512Mi
-        limits:
-          cpu: 1
-          memory: 512Mi
+    pod:
       securityContext:
         runAsUser: {{ include "library.runAsUser" . }}
+    container:
+      resources:
+          requests:
+            cpu: 1
+            memory: 512Mi
+          limits:
+            cpu: 1
+            memory: 512Mi
+
 {{- end }}
