@@ -12,8 +12,8 @@
                             "title": "MySQL Version",
                             "description": "The version of MySQL to launch.",
                             "type": "string",
-                            "default": "5.7.33-v1",
-                            "enum": ["5.7.33-v1", "8.0.23-v1"]
+                            "default": "5.7.36",
+                            "enum": ["5.7.36", "8.0.29"]
                         },
                         "storage": {
                             "type": "object",

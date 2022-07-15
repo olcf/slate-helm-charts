@@ -8,7 +8,7 @@ fullnameOverride: ""
 ## Settings presented to create KubeDB MySQL deployment
 mysql:
   spec:
-    version: "5.7.33-v1"
+    version: "5.7.36"
     storage:
       size: 1Gi
     ## Set to an already existing username and password combination to use for the root account.
