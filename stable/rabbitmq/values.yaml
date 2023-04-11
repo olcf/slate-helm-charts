@@ -1,5 +1,5 @@
 deploy-image:
-  image: rabbitmq:3-management
+  image: docker.io/library/rabbitmq:3-management
   service:
     port: 15672
   persistence:

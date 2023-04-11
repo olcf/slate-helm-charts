@@ -44,7 +44,7 @@ spec:
       serviceAccountName: {{ include "minio-nfs.serviceAccountName" . | quote }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "minio/minio:{{ .Values.image.tag }}"
+          image: "docker.io/minio/minio:{{ .Values.image.tag }}"
           imagePullPolicy: Always
           command:
             - '/bin/sh'
