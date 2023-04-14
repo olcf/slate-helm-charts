@@ -1,5 +1,5 @@
 replicaCount: 1
-image: openshift/hello-openshift:latest
+image: docker.io/openshift/hello-openshift:latest
 
 ccs:
   filesystems: ""

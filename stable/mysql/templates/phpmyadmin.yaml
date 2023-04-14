@@ -16,7 +16,7 @@ spec:
         app: {{ include "mysql.fullname" . }}-phpmyadmin
     spec:
       containers:
-      - image: phpmyadmin/phpmyadmin
+      - image: docker.io/phpmyadmin/phpmyadmin
         imagePullPolicy: Always
         name: {{ include "mysql.fullname" . }}-phpmyadmin
         resources:
@@ -119,7 +119,7 @@ data:
   {{ if .Values.phpmyadmin.blowfish_secret -}}
   config.secret.inc.php: {{ printf "<?php\n $cfg['blowfish_secret'] = '%s';\n ?>" .Values.phpmyadmin.blowfish_secret | b64enc }}
   {{ else }}
-  config.secret.inc.php: {{ printf "<?php\n $cfg['blowfish_secret'] = '%s';\n ?>" (randAscii 32) | b64enc }}
+  config.secret.inc.php: {{ printf "<?php\n $cfg['blowfish_secret'] = '%s';\n ?>" (randAscii 24 | b64enc) | b64enc }}
   {{ end }}
 ---
 apiVersion: v1
