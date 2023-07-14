@@ -1,0 +1,51 @@
+{{- if .Values.stash.enabled -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "mariadb.fullname" . }}-stash-secret
+data:
+  RESTIC_PASSWORD: {{ template "restic.password"  .  }}
+type: Opaque
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "mariadb.fullname" . }}-stash-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.stash.storage_size }}
+  storageClassName: netapp-nfs
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  name: {{ include "mariadb.fullname" . }}-stash-repo-with-pvc
+spec:
+  backend:
+    local:
+      mountPath: /backups
+      persistentVolumeClaim:
+        claimName: {{ include "mariadb.fullname" . }}-stash-pvc
+    storageSecretName: {{ include "mariadb.fullname" . }}-stash-secret
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  name: {{ include "mariadb.fullname" . }}-backup
+spec:
+  schedule: {{ .Values.stash.schedule | quote }}
+  repository:
+    name: {{ include "mariadb.fullname" . }}-stash-repo-with-pvc
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: {{ include "mariadb.fullname" . }}
+  retentionPolicy:
+    name: {{ .Values.stash.retention_policy.name | quote }}
+    keepLast: {{ .Values.stash.retention_policy.keep }}
+    prune: {{ .Values.stash.retention_policy.prune }}
+{{- end }}
