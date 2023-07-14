@@ -1,0 +1,9 @@
+apiVersion: v2
+name: mariadb
+description: MariaDB deployyment with NetApp persistent storage
+type: application
+version: 1.0.0
+icon: https://mariadb.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2019/11/mariadb-logo_black-transparent-600x150.png.webp
+maintainers:
+  - name: Platforms Group
+    url: https://www.olcf.ornl.gov/about-olcf/staff-sections/operations/platforms/

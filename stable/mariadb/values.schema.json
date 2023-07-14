@@ -1,0 +1,138 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+        "mariadb": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "type": "object",
+                    "properties": {
+                        "version": {
+                            "title": "MariaDB Version",
+                            "description": "The version of MariaDB to launch.",
+                            "type": "string",
+                            "default": "10.4.17",
+                            "enum": ["10.4.17", "10.10.22"]
+                        },
+                        "storage": {
+                            "type": "object",
+                            "properties": {
+                                "size": {
+                                    "title": "MariaDB Size",
+                                    "description": "This is a required field. The amount of storage to allocate for the MariaDB Database",
+                                    "type": "string",
+                                    "default": "1Gi"
+                                }
+                            }
+                        },
+                        "terminationPolicy": {
+                            "title": "Termination Policy",
+                            "description": "Termination policy for the instance when MariaDB is removed.",
+                            "type": "string",
+                            "default": "WipeOut",
+                            "enum": ["Delete", "DoNotTerminate", "Halt", "WipeOut"]
+                        },
+                        "resources": {
+                            "type": "object",
+                            "title": "Resources",
+                            "description": "Define cpu and memory resources",
+                            "properties": {
+                                "requests": {
+                                    "description": "The minimum amount of resources required for the workload",
+                                    "properties": {
+                                        "cpu": {
+                                          "type": "string",
+                                          "title": "CPU",
+                                          "default": "500m"
+                                        },
+                                        "memory": {
+                                          "type": "string",
+                                          "title": "Memory",
+                                          "default": "512Mi"
+                                        }
+                                    }
+                                },
+                                "limits": {
+                                    "description": "The aboslute limit for the resource request, if the workload exceeds this it could get evicted",
+                                    "properties": {
+                                        "cpu": {
+                                          "type": "string",
+                                          "title": "CPU",
+                                          "default": "1"
+                                        },
+                                        "memory": {
+                                          "type": "string",
+                                          "title": "Memory",
+                                          "default": "1Gi"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "primary": {
+                    "type": "object",
+                    "properties": {
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "default": "ClusterIP",
+                                    "enum": ["ClusterIP", "NodePort"]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "phpmyadmin": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable phpMyAdmin",
+                    "description": "Whether or not to enable the phpMyAdmin deployment. Defaults to true",
+                    "type": "boolean"
+                }
+            }
+        },
+        "stash": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "title": "Enable Backups",
+                    "description": "Whether or not to enable automatic backups. Defaults to true",
+                    "type": "boolean"
+                },
+                "retention_policy": {
+                    "type": "object",
+                    "properties": {
+                        "keep": {
+                            "title": "Number to Keep",
+                            "description": "Number of backups to keep. Defaults to the last five.",
+                            "type": "integer"
+                        },
+                        "name": {
+                            "title": "name",
+                            "description": "Name of regimen. Defaults to keep-last-5 with the default number of backups to keep is 5",
+                            "type": "string"
+                        }
+                    }
+                },
+                "schedule": {
+                    "title": "Backup Schedule",
+                    "description": "cron schedule for when to run backups. Defaults to 4:41 am daily",
+                    "type": "string"
+                },
+                "storage_size": {
+                    "title": "Backup Storage Size",
+                    "description": "Storage size to use for retained backups. Defaults to 1Gi",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

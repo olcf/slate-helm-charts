@@ -1,0 +1,160 @@
+{{- if .Values.phpmyadmin.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ include "mariadb.fullname" . }}-phpmyadmin
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "mariadb.fullname" . }}-phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: {{ include "mariadb.fullname" . }}-phpmyadmin
+    spec:
+      containers:
+      - image: docker.io/phpmyadmin/phpmyadmin
+        imagePullPolicy: Always
+        name: {{ include "mariadb.fullname" . }}-phpmyadmin
+        resources:
+          {{- toYaml .Values.phpmyadmin.spec.resources | nindent 10 }}
+        ports:
+        - containerPort: {{ .Values.phpmyadmin.apache2.port }}
+        env:
+          {{ if .Values.phpmyadmin.auto_login -}}
+          - name: PMA_HOST
+            value: {{ include "mariadb.fullname" . }}
+          - name: PMA_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "mariadb.fullname" . }}-auth
+                key: username
+          - name: PMA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "mariadb.fullname" . }}-auth
+                key: password
+          {{ else }}
+          - name: PMA_ARBITRARY
+            value: "1"
+          #- name: PMA_HOST
+          #  value: {{ include "mariadb.fullname" . }}
+          {{ end }}
+        volumeMounts:
+        - name: "{{ include "mariadb.fullname" . }}-phpmyadmin-apache2-config"
+          mountPath: '/etc/apache2/sites-available/000-default.conf'
+          subPath: '000-default.conf'
+        - name: "{{ include "mariadb.fullname" . }}-phpmyadmin-apache2-config"
+          mountPath: '/etc/apache2/ports.conf'
+          subPath: 'ports.conf'
+        - name: "{{ include "mariadb.fullname" . }}-phpmyadmin-blowfish"
+          mountPath: '/etc/phpmyadmin/config.secret.inc.php'
+          subPath: 'config.secret.inc.php'
+        - name: "{{ include "mariadb.fullname" . }}-phpmyadmin-userconfig"
+          mountPath: '/etc/phpmyadmin/config.user.inc.php'
+          subPath: 'config.user.inc.php'
+        - name: "{{ include "mariadb.fullname" . }}-phpmyadmin-tempdir"
+          mountPath: '/var/www/html/tmp'
+      volumes:
+      - name: {{ include "mariadb.fullname" . }}-phpmyadmin-apache2-config
+        configMap:
+          name: {{ include "mariadb.fullname" . }}-phpmyadmin-apache2-config
+          defaultMode: 0644
+      - name: {{ include "mariadb.fullname" . }}-phpmyadmin-blowfish
+        secret:
+          secretName: {{ include "mariadb.fullname" . }}-phpmyadmin-blowfish
+      - name: {{ include "mariadb.fullname" . }}-phpmyadmin-userconfig
+        configMap:
+          name: {{ include "mariadb.fullname" . }}-phpmyadmin-userconfig
+          defaultMode: 0644
+      - name: {{ include "mariadb.fullname" . }}-phpmyadmin-tempdir
+        persistentVolumeClaim:
+          claimName: {{ include "mariadb.fullname" . }}-phpmyadmin-tempdir
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ include "mariadb.fullname" . }}-phpmyadmin
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin
+spec:
+  ports:
+  - name: http
+    port: {{ .Values.phpmyadmin.apache2.port }}
+    protocol: TCP
+    targetPort: {{ .Values.phpmyadmin.apache2.port }}
+  selector:
+    app: {{ include "mariadb.fullname" . }}-phpmyadmin
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin-apache2-config
+data:
+  000-default.conf: |
+    <VirtualHost *:{{ .Values.phpmyadmin.apache2.port }}>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+  ports.conf: |
+    Listen {{ .Values.phpmyadmin.apache2.port }}
+    <IfModule ssl_module>
+      Listen 443
+    </IfModule>
+    <IfModule mod_gnutls.c>
+      Listen 443
+    </IfModule>
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin-blowfish
+data:
+  {{ if .Values.phpmyadmin.blowfish_secret -}}
+  config.secret.inc.php: {{ printf "<?php\n $cfg['blowfish_secret'] = '%s';\n ?>" .Values.phpmyadmin.blowfish_secret | b64enc }}
+  {{ else }}
+  config.secret.inc.php: {{ printf "<?php\n $cfg['blowfish_secret'] = '%s';\n ?>" (randAscii 24 | b64enc) | b64enc }}
+  {{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin-userconfig
+data:
+  config.user.inc.php: |
+    {{ .Values.phpmyadmin.user_config }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin-tempdir
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ .Values.phpmyadmin.tempdir_size }}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "mariadb.fullname" . }}-phpmyadmin
+  annotations:
+    ccs.ornl.gov/requireAuth: "true"
+spec:
+{{- if .Values.phpmyadmin.route.hostname }}
+  host: {{ .Values.phpmyadmin.route.hostname }}
+{{- end }}
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ include "mariadb.fullname" . }}-phpmyadmin
+{{- end }}

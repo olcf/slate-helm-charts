@@ -1,0 +1,52 @@
+apiVersion: kubedb.com/v1alpha2
+kind: MariaDB
+metadata:
+  name: {{ include "mariadb.fullname" . }}
+  labels:
+    {{- include "mariadb.labels" . | nindent 4 }}
+spec:
+  version: {{ .Values.mariadb.spec.version }}
+  replicas: {{ .Values.mariadb.spec.replicas }}
+{{- if .Values.mariadb.spec.authSecret }}
+  authSecret:
+      name: {{ .Values.mariadb.spec.authSecret }}
+{{- end }}
+  storageType: "Durable"
+  storage:
+    storageClassName: netapp-nfs
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: {{ .Values.mariadb.spec.storage.size | quote }}
+{{- if .Values.mariadb.spec.configMapName }}
+  # init:
+  #  script:
+  #    configMap:
+  #      name: {{.Values.mariadb.spec.configMapName }}
+{{- end }}
+  requireSSL: false
+  podTemplate:
+    spec:
+      resources:
+        {{- toYaml .Values.mariadb.spec.resources | nindent 8 }}
+  terminationPolicy: {{ .Values.mariadb.spec.terminationPolicy | quote }}
+{{- if .Values.mariadb.primary.service.type }}
+  serviceTemplates:
+  - alias: primary
+    spec:
+      type: {{ .Values.mariadb.primary.service.type }}
+{{- end }}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-{{ include "mariadb.fullname" . }}-access
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ include "mariadb.fullname" . }}
+  ingress:
+    - {}
+  policyTypes:
+  - Ingress
