@@ -19,11 +19,9 @@ spec:
     resources:
       requests:
         storage: {{ .Values.mariadb.spec.storage.size | quote }}
-{{- if .Values.mariadb.spec.configMapName }}
-  # init:
-  #  script:
-  #    configMap:
-  #      name: {{.Values.mariadb.spec.configMapName }}
+{{- if .Values.mariadb.spec.configSecret }}  
+  configSecret:
+    name: {{.Values.mariadb.spec.configSecret }}
 {{- end }}
   requireSSL: false
   podTemplate:
