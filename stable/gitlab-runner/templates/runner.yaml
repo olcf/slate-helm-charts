@@ -1,0 +1,10 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  name: {{ .Release.Name }}-gitlab-runner
+  namespace: {{ .Values.namespace }}
+spec:
+  gitlabUrl: {{ .Values.gitlabUrl }}
+  imagePullPolicy: {{ .Values.imagePullPolicy }}
+  tags: 'openshift, test, marble'
+  token: {{ .Release.Name }}-gitlab-runner-secret
