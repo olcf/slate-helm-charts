@@ -30,7 +30,8 @@
         "runnerRegistrationToken": {
           "title": "Registration Token",
           "type": "string",
-          "description": "The registration token for adding new runners to the GitLab Server"
+          "description": "The registration token for adding new runners to the GitLab Server",
+          "minLength": 1
         },
         "resources": {
             "title": "Resources",
